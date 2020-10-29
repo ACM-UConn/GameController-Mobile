@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import HomeScreen from './components/HomeScreen/HomeScreen';
 
 export default function App() {
+  const [currentScreen, setCurrentScreen] = useState("home");
   return (
     <View style={styles.container}>
-      <Text>This is the start of GameController...</Text>
+      <Text>Hey</Text>
+      <HomeScreen></HomeScreen>
     </View>
   );
 }
