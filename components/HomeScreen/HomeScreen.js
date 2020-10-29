@@ -10,7 +10,7 @@ export default function HomeScreen(props) {
     props.changeScreen(screen)
   }
 
-  
+  // does the return statement if the prop from App.js is true (if one of the different screens was clicked)
   if (props.shouldRender) {
     return(
     <View style={styles.container}>
@@ -18,14 +18,17 @@ export default function HomeScreen(props) {
         <Text style={styles.header}> GameController </Text>
       </View>
       <ControllerList></ControllerList>
-      <HomeActionBar screenRequest={screen => screenCallback(screen)}></HomeActionBar>
+      <HomeActionBar screenRequest={screen => screenCallback(screen)}></HomeActionBar>  
     </View>)
   } else {
     return(null)
   }
 }
 
+
+
 const styles = StyleSheet.create({
+  
     container: {
       flex: 1,
     },
