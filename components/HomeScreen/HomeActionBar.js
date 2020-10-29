@@ -1,9 +1,27 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableHighlight, Text, View } from 'react-native';
 
 export default function HomeActionBar() {
   return (
-      null
+      <View>
+        <TouchableHighlight>
+          <View>
+            <Text>Play</Text>
+          </View>
+        </TouchableHighlight>
+
+        <TouchableHighlight>
+          <View>
+            <Text>Create</Text>
+          </View>
+        </TouchableHighlight>
+
+        <TouchableHighlight>
+          <View>
+            <Text>Edit</Text>
+          </View>
+        </TouchableHighlight>
+      </View>
   );
 }
 
