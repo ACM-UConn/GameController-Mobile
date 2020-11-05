@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 
 export default function ControllerPlay() {
   // counter variable for button A
@@ -22,26 +22,26 @@ export default function ControllerPlay() {
   return (
     <View style={styles.container}>
       
-      <TouchableHighlight onPress={onPressA}>
-        <View style={styles.button, styles.buttonA}>
+      <TouchableHighlight onPress={() => onPressA}>
+        <View style={[styles.button, { backgroundColor: 'green' }]}>
           <Text>A: {a}</Text>   {/* this text displays the count for button A */}
         </View>
       </TouchableHighlight>
 
-      <TouchableHighlight onPress={onPressB}>
-        <View style={styles.button, styles.buttonB}>
+      <TouchableHighlight onPress={() => onPressB}>
+        <View style={[styles.button, { backgroundColor: 'red' }]}>
           <Text>B: {b}</Text>
         </View>
       </TouchableHighlight>
 
-      <TouchableHighlight onPress={onPressX}>
-        <View style={styles.button, styles.buttonX}>
+      <TouchableHighlight onPress={() => onPressX}>
+        <View style={[styles.button, { backgroundColor: 'blue' }]}>
           <Text>X: {x}</Text>
         </View>
       </TouchableHighlight>
 
-      <TouchableHighlight onPress={onPressY}>
-        <View style={styles.button, styles.buttonY}>
+      <TouchableHighlight onPress={() => onPressY}>
+        <View style={[styles.button, { backgroundColor: 'yellow' }]}>
           <Text>Y: {y}</Text>
         </View>
       </TouchableHighlight>
@@ -62,11 +62,5 @@ const styles = StyleSheet.create({
     width: 25,
     color: '#000000',
     borderRadius: 12.5,
-    display: inline-block
   },
-  // four colors, one for each button
-  buttonA: { backgroundcolor: 'green' },
-  buttonB: { backgroundcolor: 'red' },
-  buttonX: { backgroundcolor: 'blue' },
-  buttonY: { backgroundcolor: 'yellow' },
 });
