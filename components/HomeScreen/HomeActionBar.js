@@ -3,22 +3,28 @@ import { StyleSheet, TouchableHighlight, Text, View } from 'react-native';
 
 export default function HomeActionBar() {
   return (
-      <View>
+      <View style={styles.container}>
         <TouchableHighlight>
-          <View>
-            <Text>Play</Text>
+          <View style={styles.button}>
+            <Text style={styles.text}>
+              Play
+            </Text>
           </View>
         </TouchableHighlight>
 
         <TouchableHighlight>
-          <View>
-            <Text>Create</Text>
+          <View style={styles.button}>
+            <Text style={styles.text}>
+              Create
+            </Text>
           </View>
         </TouchableHighlight>
 
         <TouchableHighlight>
-          <View>
-            <Text>Edit</Text>
+          <View style={styles.button}>
+            <Text style={styles.text}>
+              Edit
+            </Text>
           </View>
         </TouchableHighlight>
       </View>
@@ -26,5 +32,19 @@ export default function HomeActionBar() {
 }
 
 const styles = StyleSheet.create({
-    
+    container: {
+      flex: 1,
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "flex-end",
+      paddingHorizontal: 10
+    },
+    button: {
+      alignItems: "center",
+      backgroundColor: "#DDDDDD",
+      padding: 15
+    },
+    text: {
+      fontSize: 24
+    }
 });
