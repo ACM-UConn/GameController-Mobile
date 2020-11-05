@@ -5,7 +5,7 @@ import HomeActionBar from './HomeActionBar';
 
 export default function HomeScreen(props) {
 
-  // when abraham (homeactionbar) sends me the screen they press
+  // when abraham (homeactionbar) sends me the screen that the user presses
   const screenCallback = (screen) => {
     props.changeScreen(screen)
   }
@@ -17,8 +17,8 @@ export default function HomeScreen(props) {
       <View>
         <Text style={styles.header}> GameController </Text>
       </View>
-      <ControllerList></ControllerList>
-      <HomeActionBar screenRequest={screen => screenCallback(screen)}></HomeActionBar>  
+      <ControllerList style={styles.list}></ControllerList>
+      <HomeActionBar style={styles.action} screenRequest={screen => screenCallback(screen)}></HomeActionBar>  
     </View>)
   } else {
     return(null)
@@ -28,15 +28,24 @@ export default function HomeScreen(props) {
 
 
 const styles = StyleSheet.create({
-  
+
     container: {
       flex: 1,
     },
 
     header: {
+      flex: 0.3,
       color: 'blue',
       textAlign: 'center',
       marginTop: 30,
       fontSize: 50,
-    }
+    },
+
+    action: {
+      flex: 0.2,
+    },
+
+    list: {
+      flex: 0.5,
+    },
 });
