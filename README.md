@@ -4,7 +4,7 @@ Mobile Client for the GameController App
 ## Required packages:
 
 - React Native
-- Typescript
+- Expo
 
 ## Potential packages (pending):
 
