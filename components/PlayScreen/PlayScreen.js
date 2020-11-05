@@ -2,11 +2,10 @@ import  React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import ControllerPlay from './ControllerPlay.js'
 import ControllerConnect from './ControllerConnect.js'
-import { useState } from 'react';
 
 export default function PlayScreen(props) {
   
-  const [connected, setConnected] = useState(False); 
+  const [connected, setConnected] = useState(false); 
 
   const connectRender = (status) => {
     setConnected(status);

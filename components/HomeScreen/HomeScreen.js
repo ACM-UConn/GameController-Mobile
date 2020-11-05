@@ -18,7 +18,7 @@ export default function HomeScreen(props) {
         <Text style={styles.header}> GameController </Text>
       </View>
       <ControllerList style={styles.list}></ControllerList>
-      <HomeActionBar style={styles.action} screenRequest={screen => screenCallback(screen)}></HomeActionBar>  
+      <HomeActionBar style={styles.actionBar} screenRequest={screen => screenCallback(screen)}></HomeActionBar>  
     </View>)
   } else {
     return(null)
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
       fontSize: 50,
     },
 
-    action: {
+    actionBar: {
       flex: 0.2,
     },
 
