@@ -1,27 +1,52 @@
 import  React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import ControllerPlay from './ControllerPlay.js'
-import ControllerConnect from './ControllerConnect.js'
+import ControllerConnect from './ControllerConnect.js';
+import io from "socket.io-client";
 
 export default function PlayScreen(props) {
   
-  const [connected, setConnected] = useState(false); 
+  const [connected, setConnected] = useState('scan')
 
-  const connectRender = (status) => {
-    setConnected(status);
+  const handleData = (data) => {
+    let temp = JSON.parse(data)
+    const socket = io.connect(temp.address + ":" + temp.port)
+    setConnected('loading')
+    socket.emit("init", {A: 'left', D: 'right', S: 'down', W: 'up'})
+    setTimeout(() => {
+      console.log("Waiting...")
+    }, 3000)
+    setConnected('playing')
+  }
+
+  const handleButtonPress = (buttonPressed) => {
+    if(buttonPressed.status == 'pressed'){
+      socket.emit("pressed", buttonPressed.button)
+    }
+    else if(buttonPressed.status == 'released'){
+      socket.emit("released", buttonPressed.button)
+    }
   }
   
   if(props.shouldRender) {
-    if(connected){
+    if(connected == 'playing'){
       return(
         <View style={styles.container}>
-          <ControllerPlay></ControllerPlay>
+          <ControllerPlay buttonPress={(buttonPressed) => handleButtonPress(buttonPressed)}></ControllerPlay>
         </View>
       )
-    } else {
+    }
+    else if(connected == 'loading'){
+      return(
+        <View style={styles.container}>
+          <Text>Loading...</Text>
+        </View>
+      )
+    }
+    else if(connected == 'scan'){
         return(
           <View style={styles.container}>
-            <ControllerConnect done={(status) => connectRender(status)} cameraPerms={props.cameraPermission}></ControllerConnect>
+            <ControllerConnect passData={(data) => handleData(data)} cameraPerms={props.cameraPermission}></ControllerConnect>
           </View>
         )
     }
