@@ -1,32 +1,50 @@
 import React from 'react';
-import { StyleSheet, TouchableHighlight, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 export default function HomeActionBar() {
   return (
       <View style={styles.container}>
-        <TouchableHighlight>
-          <View style={styles.button}>
+        <Pressable
+        style={({ pressed }) => [
+          {
+            backgroundColor: pressed
+            ? 'gray'
+            : 'darkgray'
+          },
+          styles.wrapperCustom
+        ]}>
             <Text style={styles.text}>
               Play
             </Text>
-          </View>
-        </TouchableHighlight>
+        </Pressable>
 
-        <TouchableHighlight>
-          <View style={styles.button}>
+        <Pressable
+        style={({ pressed }) => [
+          {
+            backgroundColor: pressed
+            ? 'gray'
+            : 'darkgray'
+          },
+          styles.wrapperCustom
+        ]}>
             <Text style={styles.text}>
               Create
             </Text>
-          </View>
-        </TouchableHighlight>
+        </Pressable>
 
-        <TouchableHighlight>
-          <View style={styles.button}>
+        <Pressable
+        style={({ pressed }) => [
+          {
+            backgroundColor: pressed
+            ? 'gray'
+            : 'darkgray'
+          },
+          styles.wrapperCustom
+        ]}>
             <Text style={styles.text}>
               Edit
             </Text>
-          </View>
-        </TouchableHighlight>
+        </Pressable>
       </View>
   );
 }
@@ -35,13 +53,12 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       flexDirection: "row",
-      justifyContent: "center",
+      justifyContent: "space-between",
       alignItems: "flex-end",
       paddingHorizontal: 10
     },
-    button: {
-      alignItems: "center",
-      backgroundColor: "#DDDDDD",
+    wrapperCustom: {
+      borderRadius: 8,
       padding: 15
     },
     text: {
