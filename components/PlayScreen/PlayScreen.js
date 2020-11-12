@@ -21,7 +21,7 @@ export default function PlayScreen(props) {
     } else {
         return(
           <View style={styles.container}>
-            <ControllerConnect done={(status) => connectRender(status)} cameraPerms={cameraPermission}></ControllerConnect>
+            <ControllerConnect done={(status) => connectRender(status)} cameraPerms={props.cameraPermission}></ControllerConnect>
           </View>
         )
     }
