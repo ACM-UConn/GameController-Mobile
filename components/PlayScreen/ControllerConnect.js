@@ -1,46 +1,53 @@
-import React from 'react';
-import { ImagePropTypes, StyleSheet, View } from 'react-native';
+import React,{useState} from 'react';
+import { Text, StyleSheet, View, Dimensions} from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 
 export default function ControllerConnect(props) {
-  //cameraPerms
   const [scanned, setScanned] = useState(false);
+
+  const windowWidth = Dimensions.get('window').width;
+  const windowHeight = Dimensions.get('window').height;
+
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    props.done(true);
+    props.passData(data);
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
   };
   
+  console.log(props.cameraPerms)
   if(props.cameraPerms==null){
-    //waiting for permission
     return(
-      <View>
+      <View style={styles.container}>
         <Text>Waiting for permission</Text>
       </View>
     )
   }
-  if(props.cameraPerms==false){
-    //denied permission
+  else if(props.cameraPerms==false){
     return(
-      <View>
+      <View style={styles.container}>
         <Text>Permission Denied</Text>
       </View>
     )
   }
-  if(props.cameraPerms==true){
-    //permissions granted
-   // <View>Permission Granted</View>
+  else if(props.cameraPerms==true){
     return(
-      <View>
-        <BarCodeScanner onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}></BarCodeScanner>
+      <View style={styles.container}> 
+        <Text>Hello</Text>
+        <BarCodeScanner style={{ height: windowHeight+20, width: windowWidth}} onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}></BarCodeScanner>
       </View>
     )
   }
-
-  }
+}
 
 
 const styles = StyleSheet.create({
-    
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  barcodeContainer:{
+    width: 700  
+  }
 });
