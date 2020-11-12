@@ -1,49 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-export default function HomeActionBar() {
+export default function HomeActionBar(props) {
   return (
       <View style={styles.container}>
-        <Pressable
-        style={({ pressed }) => [
-          {
-            backgroundColor: pressed
-            ? 'gray'
-            : 'darkgray'
-          },
-          styles.wrapperCustom
-        ]}>
-            <Text style={styles.text}>
-              Play
-            </Text>
+        <Pressable style={({ pressed }) => [{ backgroundColor: pressed ? 'gray' : 'darkgray'}, styles.wrapperCustom]} onPress={() => {props.screenRequest("play")}}>
+            <Text style={styles.text}>Play</Text>
         </Pressable>
 
-        <Pressable
-        style={({ pressed }) => [
-          {
-            backgroundColor: pressed
-            ? 'gray'
-            : 'darkgray'
-          },
-          styles.wrapperCustom
-        ]}>
-            <Text style={styles.text}>
-              Create
-            </Text>
+        <Pressable style={({ pressed }) => [{backgroundColor: pressed ? 'gray' : 'darkgray'}, styles.wrapperCustom]} onPress={() => {props.screenRequest("edit")}}>
+            <Text style={styles.text}>Create</Text>
         </Pressable>
 
-        <Pressable
-        style={({ pressed }) => [
-          {
-            backgroundColor: pressed
-            ? 'gray'
-            : 'darkgray'
-          },
-          styles.wrapperCustom
-        ]}>
-            <Text style={styles.text}>
-              Edit
-            </Text>
+        <Pressable style={({ pressed }) => [{backgroundColor: pressed ? 'gray' : 'darkgray'}, styles.wrapperCustom]} onPress={() => {props.screenRequest("edit")}}>
+            <Text style={styles.text}>Edit</Text>
         </Pressable>
       </View>
   );
