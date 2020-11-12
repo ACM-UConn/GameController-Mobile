@@ -1,5 +1,5 @@
 import  React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import ControllerPlay from './ControllerPlay.js'
 import ControllerConnect from './ControllerConnect.js'
 
