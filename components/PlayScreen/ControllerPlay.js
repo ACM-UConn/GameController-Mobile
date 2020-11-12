@@ -1,51 +1,22 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import React from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-export default function ControllerPlay() {
-  // counter variable for button A
-  const [a, setA] = useState(0);
-  const onPressA = () => setA(a + 1)  // when button A is pressed, update its count
+export default function ControllerPlay(props) {
   
-  // button B
-  const [b, setB] = useState(0);
-  const onPressB = () => setB(b + 1) // when button B is pressed, update its count
-  
-  // button X
-  const [x, setX] = useState(0);
-  const onPressX = () => setX(x + 1) // when button X is pressed, update its count
-  
-  // button Y
-  const [y, setY] = useState(0);
-  const onPressY = () => setY(y + 1) // when button Y is pressed, update its count
-
-  // this view contains four buttons: A, B, X, and Y
   return (
     <View style={styles.container}>
-      
-      <TouchableHighlight onPress={() => onPressA}>
-        <View style={[styles.button, { backgroundColor: 'green' }]}>
-          <Text>A: {a}</Text>   {/* this text displays the count for button A */}
-        </View>
-      </TouchableHighlight>
-
-      <TouchableHighlight onPress={() => onPressB}>
-        <View style={[styles.button, { backgroundColor: 'red' }]}>
-          <Text>B: {b}</Text>
-        </View>
-      </TouchableHighlight>
-
-      <TouchableHighlight onPress={() => onPressX}>
-        <View style={[styles.button, { backgroundColor: 'blue' }]}>
-          <Text>X: {x}</Text>
-        </View>
-      </TouchableHighlight>
-
-      <TouchableHighlight onPress={() => onPressY}>
-        <View style={[styles.button, { backgroundColor: 'yellow' }]}>
-          <Text>Y: {y}</Text>
-        </View>
-      </TouchableHighlight>
-
+      <Pressable style={({ pressed }) => [{backgroundColor: pressed ? 'gray' : 'darkgray'}, styles.wrapperCustom]} onPressIn={() => {props.buttonPress({button: "W", status: "pressed"})}} onPressOut={() => {props.buttonPress({button: "W", status: "released"})}}>
+        <Text style={styles.text}>W</Text>
+      </Pressable>
+      <Pressable style={({ pressed }) => [{backgroundColor: pressed ? 'gray' : 'darkgray'}, styles.wrapperCustom]} onPressIn={() => {props.buttonPress({button: "A", status: "pressed"})}} onPressOut={() => {props.buttonPress({button: "A", status: "released"})}}>
+        <Text style={styles.text}>A</Text>
+      </Pressable>
+      <Pressable style={({ pressed }) => [{backgroundColor: pressed ? 'gray' : 'darkgray'}, styles.wrapperCustom]} onPressIn={() => {props.buttonPress({button: "S", status: "pressed"})}} onPressOut={() => {props.buttonPress({button: "S", status: "released"})}}>
+        <Text style={styles.text}>S</Text>
+      </Pressable>
+      <Pressable style={({ pressed }) => [{backgroundColor: pressed ? 'gray' : 'darkgray'}, styles.wrapperCustom]} onPressIn={() => {props.buttonPress({button: "D", status: "pressed"})}} onPressOut={() => {props.buttonPress({button: "D", status: "released"})}}>
+        <Text style={styles.text}>D</Text>
+      </Pressable>
     </View>
   );
 }
@@ -56,11 +27,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingHorizontal: 10
   },
-  // CSS to make a circle button
-  button: {
-    height: 25,
-    width: 25,
-    color: '#000000',
-    borderRadius: 12.5,
+  wrapperCustom: {
+    borderRadius: 8,
+    padding: 15
   },
+  text: {
+    fontSize: 24
+  }
 });
