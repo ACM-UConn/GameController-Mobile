@@ -1,30 +1,27 @@
-import  React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import  React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import ControllerPlay from './ControllerPlay.js'
 import ControllerConnect from './ControllerConnect.js';
-import io from "socket.io-client";
+let socket = null;
 
 export default function PlayScreen(props) {
-  
   const [connected, setConnected] = useState('scan')
 
   const handleData = (data) => {
-    let temp = JSON.parse(data)
-    const socket = io.connect(temp.address + ":" + temp.port)
-    setConnected('loading')
-    socket.emit("init", {A: 'left', D: 'right', S: 'down', W: 'up'})
-    setTimeout(() => {
-      console.log("Waiting...")
-    }, 3000)
-    setConnected('playing')
+    socket = new WebSocket('ws://172.20.1.168:4567');
+    setConnected('loading');
+    socket.onopen = () => {
+      socket.send(JSON.stringify({type: 'init', A: 'left', D: 'right', S: 'down', W: 'up'}))
+    }
+    setConnected('playing');
   }
 
   const handleButtonPress = (buttonPressed) => {
     if(buttonPressed.status == 'pressed'){
-      socket.emit("pressed", buttonPressed.button)
+      socket.send(JSON.stringify({pressed: buttonPressed.button}))
     }
     else if(buttonPressed.status == 'released'){
-      socket.emit("released", buttonPressed.button)
+      socket.send(JSON.stringify({released: buttonPressed.button}))
     }
   }
   
@@ -33,13 +30,6 @@ export default function PlayScreen(props) {
       return(
         <View style={styles.container}>
           <ControllerPlay buttonPress={(buttonPressed) => handleButtonPress(buttonPressed)}></ControllerPlay>
-        </View>
-      )
-    }
-    else if(connected == 'loading'){
-      return(
-        <View style={styles.container}>
-          <Text>Loading...</Text>
         </View>
       )
     }
