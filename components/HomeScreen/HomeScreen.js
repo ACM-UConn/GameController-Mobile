@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import ControllerList from './ControllerList';
 import HomeActionBar from './HomeActionBar';
 
@@ -13,12 +13,21 @@ export default function HomeScreen(props) {
   // does the return statement if the prop from App.js is true (if one of the different screens was clicked)
   if (props.shouldRender) {
     return(
+
     <View style={styles.container}>
+
       <View>
-        <Text style={styles.header}> GameController </Text>
+        <Text style={styles.header}>GameController</Text>
       </View>
-      <ControllerList style={styles.list}></ControllerList>
-      <HomeActionBar style={styles.actionBar} screenRequest={screen => screenCallback(screen)}></HomeActionBar>  
+
+      <View style={styles.list}>
+        <ControllerList></ControllerList>
+      </View>
+
+      <View style={styles.actionBar}>
+        <HomeActionBar screenRequest={screen => screenCallback(screen)}></HomeActionBar>  
+      </View>
+
     </View>)
   } else {
     return(null)
@@ -31,21 +40,26 @@ const styles = StyleSheet.create({
 
     container: {
       flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      marginTop: 60,
     },
 
     header: {
-      flex: 0.3,
-      color: 'blue',
-      textAlign: 'center',
-      marginTop: 30,
-      fontSize: 50,
+      flex: 0.08,
+      padding: 30,
+      alignItems: 'center',
+      fontSize: 40,
     },
 
     actionBar: {
       flex: 0.2,
+      marginLeft: 15,
+      marginRight: 15,
+      marginBottom: 50,
     },
 
     list: {
-      flex: 0.5,
+      flex: 0.75,
     },
 });
