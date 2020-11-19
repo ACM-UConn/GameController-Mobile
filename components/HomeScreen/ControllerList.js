@@ -26,18 +26,20 @@ export default function ControllerList() {
   );
 }
 
+
 const styles = StyleSheet.create({
     itemText: {
         fontSize: 40
     },
     controllerItem: {
-        width: '40%',
-        height: '25%',
-        marginTop: 70,
-        marginRight: 200,
-        alignContent: 'center',
-        backgroundColor: '#f5f5f5',
-        overflow: 'hidden',
+        shadowColor: 'black',
+        shadowOffset: {width: 0, height: 2},
+        shadowRadius: 6,
+        shadowOpacity: 0.26,
+        backgroundColor: 'white',
+        elevation: 5,
+        padding: 15,
+        borderRadius: 20
     },
 
 });
