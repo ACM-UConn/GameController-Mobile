@@ -17,12 +17,8 @@ export default function PlayScreen(props) {
   }
 
   const handleButtonPress = (buttonPressed) => {
-    if(buttonPressed.status == 'pressed'){
-      socket.send(JSON.stringify({pressed: buttonPressed.button}))
-    }
-    else if(buttonPressed.status == 'released'){
-      socket.send(JSON.stringify({released: buttonPressed.button}))
-    }
+    console.log(buttonPressed)
+    socket.send(JSON.stringify(buttonPressed))
   }
   
   if(props.shouldRender) {
