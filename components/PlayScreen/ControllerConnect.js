@@ -33,7 +33,6 @@ export default function ControllerConnect(props) {
   else if(props.cameraPerms==true){
     return(
       <View style={styles.container}> 
-        <Text>Hello</Text>
         <BarCodeScanner style={{ height: windowHeight+20, width: windowWidth}} onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}></BarCodeScanner>
       </View>
     )
