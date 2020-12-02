@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, FlatList, View, Text } from 'react-native';
+import { StyleSheet, FlatList, View, Text, TouchableNativeFeedback } from 'react-native';
 
 const Data = [
     {
@@ -19,9 +19,11 @@ const Data = [
 export default function ControllerList() {
 
     const renderController = itemData => (
-        <View style={styles.controllerItem}>
-            <Text>{itemData.item.title}</Text>
-        </View>
+        <TouchableNativeFeedback>
+            <View style={styles.controllerItem}>
+                <Text>{itemData.item.title}</Text>
+            </View>
+        </TouchableNativeFeedback>
     )
 
 
@@ -46,8 +48,8 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.26,
         backgroundColor: 'white',
         elevation: 5,
-        padding: 15,
+        margin: 10,
+        padding: 20,
         borderRadius: 20
     },
-
 });
