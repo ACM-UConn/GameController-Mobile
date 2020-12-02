@@ -8,10 +8,10 @@ export default function PlayScreen(props) {
   const [connected, setConnected] = useState('scan');
 
   const handleData = (data) => {
-    socket = new WebSocket('ws://172.20.1.168:4567');
+    socket = new WebSocket('ws://172.20.1.168:7070/events/');
     setConnected('loading');
     socket.onopen = () => {
-      socket.send(JSON.stringify({type: 'init', A: 'left', D: 'right', S: 'down', W: 'up'}))
+      socket.send(JSON.stringify({'type': 'init', 'keys': [{'name': 'A', 'action': 'left'}, {'name': 'D', 'action': 'right'}, {'name': 'S', 'action': 'down'}, {'name': 'W', 'action': 'up'}]}))
     }
     setConnected('playing');
   }
