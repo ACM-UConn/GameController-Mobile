@@ -46,8 +46,8 @@ const styles = StyleSheet.create({
     },
 
     header: {
-      flex: 0.08,
-      padding: 40,
+      flex: 0.1,
+      padding: 30,
       alignItems: 'center',
       fontSize: 40,
     },
