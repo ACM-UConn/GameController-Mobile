@@ -24,8 +24,7 @@ const styles = StyleSheet.create({
       flex: 1,
       flexDirection: "row",
       justifyContent: "space-between",
-      alignItems: "flex-end",
-      paddingHorizontal: 10
+      alignItems: "center",
     },
     wrapperCustom: {
       borderRadius: 8,

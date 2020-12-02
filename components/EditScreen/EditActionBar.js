@@ -13,9 +13,10 @@ export default function EditActionBar(props) {
         </Pressable>
 
         <Pressable style={({ pressed }) => [{ backgroundColor: pressed ? 'gray' : 'darkgray'}, styles.wrapperCustom]} onPress={() => {props.visible()}}>
+          <Text styles={styles.text}>Menu</Text>
+          {/* <View styles={styles.menubutton}></View>
           <View styles={styles.menubutton}></View>
-          <View styles={styles.menubutton}></View>
-          <View styles={styles.menubutton}></View>
+          <View styles={styles.menubutton}></View> */}
         </Pressable>
       </View>
   );
@@ -25,13 +26,16 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "flex-end",
-      paddingHorizontal: 10
+      justifyContent: "space-around",
+      alignItems: "center",
     },
     wrapperCustom: {
       borderRadius: 8,
-      padding: 15
+      padding: 15,
+      width: 70,
+      height: 60,
+      alignItems: 'center',
+      justifyContent: 'center'
     },
     text: {
       fontSize: 24

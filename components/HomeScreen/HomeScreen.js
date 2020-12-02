@@ -16,8 +16,8 @@ export default function HomeScreen(props) {
 
     <View style={styles.container}>
 
-      <View>
-        <Text style={styles.header}>GameController</Text>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>GameController</Text>
       </View>
 
       <View style={styles.list}>
@@ -41,26 +41,25 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       flexDirection: 'column',
-      justifyContent: 'space-between',
-      marginTop: 60,
     },
 
     header: {
-      flex: 0.1,
-      padding: 30,
+      flex: 0.2,
+      paddingTop: 60,
+      paddingBottom: 25,
       alignItems: 'center',
+      justifyContent: 'center'
+    },
+
+    headerText: {
       fontSize: 40,
     },
 
     actionBar: {
-      flex: 0.2,
-      marginLeft: 15,
-      marginRight: 15,
-      marginBottom: 50,
+      flex: 0.3,
     },
 
     list: {
-      flex: 0.75,
-      marginTop: 20
+      flex: 0.5,
     },
 });

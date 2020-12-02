@@ -44,20 +44,19 @@ export default function EditScreen(props) {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
+      flexDirection: 'column'
     },
 
     body: {
-      flex: 0.8,
-      width: Dimensions.get('window').width,
+      flex: 0.90,
+      alignSelf: 'stretch',
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      backgroundColor: '#f5f5f5'
     },
 
     actionBar: {
-      flex: 0.2,
-      marginLeft: 15,
-      marginRight: 15,
-      marginBottom: 50,
+      flex: 0.1,
       width: Dimensions.get('window').width,
     },
 

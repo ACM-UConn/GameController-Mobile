@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import HomeScreen from './components/HomeScreen/HomeScreen';
 import PlayScreen from './components/PlayScreen/PlayScreen';
 import EditScreen from './components/EditScreen/EditScreen';
@@ -25,11 +25,11 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <HomeScreen shouldRender={currentScreen === "home"} changeScreen={(screen) => {changeScreen(screen)}}></HomeScreen>
       <PlayScreen shouldRender={currentScreen === "play"} changeScreen={(screen) => {changeScreen(screen)}} cameraPermission={cameraPermission} ></PlayScreen>
       <EditScreen shouldRender={currentScreen === "edit"} changeScreen={(screen) => {changeScreen(screen)}}></EditScreen>
-    </View>
+    </SafeAreaView>
   );
 }
 
