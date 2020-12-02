@@ -3,13 +3,13 @@ import { ImagePropTypes, Pressable, StyleSheet, Text, View } from 'react-native'
 
 export default function EditActionBar(props) {
   return (
-      <View style="styles.container">
+      <View style={styles.container}>
         <Pressable style={({ pressed }) => [{ backgroundColor: pressed ? 'gray' : 'darkgray'}, styles.wrapperCustom]} onPress={() => {props.screenRequest("home")}}>
-          <Text styles="styles.text">Back</Text>
+          <Text styles={styles.text}>Back</Text>
         </Pressable>
 
         <Pressable style={({ pressed }) => [{ backgroundColor: pressed ? 'gray' : 'darkgray'}, styles.wrapperCustom]} onPress={() => {props.addButton()}}>
-          <Text styles="styles.text">+</Text>
+          <Text styles={styles.text}>+</Text>
         </Pressable>
 
         <Pressable style={({ pressed }) => [{ backgroundColor: pressed ? 'gray' : 'darkgray'}, styles.wrapperCustom]} onPress={() => {props.visible()}}>
