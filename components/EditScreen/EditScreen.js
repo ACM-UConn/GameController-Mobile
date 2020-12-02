@@ -15,6 +15,10 @@ export default function EditScreen(props) {
     console.log("Look i made a button :) ")
   }
 
+  const screenCallback = (screen) => {
+    props.changeScreen(screen)
+  }
+
   if(props.shouldRender){
     return(
       <View style={styles.container}>
@@ -25,7 +29,7 @@ export default function EditScreen(props) {
           <SideMenu visible={visibility}></SideMenu>
         </View>
         <View style={styles.actionBar}>
-          <EditActionBar visible={() => visible()} addButton={() => handleAddButton()}></EditActionBar>
+          <EditActionBar visible={() => visible()} addButton={() => handleAddButton()} screenRequest={screen => screenCallback(screen)}></EditActionBar>
         </View>
       </View>
     );
@@ -59,8 +63,8 @@ const styles = StyleSheet.create({
 
     menu: {
       position: 'absolute',
-      width: 100,
-      height: 300,
+      width: 200,
+      height: 250,
       top: 0,
       right: 0,
     }
