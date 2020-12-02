@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ImagePropTypes, StyleSheet, View, Text } from 'react-native';
+import { ImagePropTypes, StyleSheet, View, Text, Dimensions } from 'react-native';
 import EditActionBar from './EditActionBar.js';
 import SideMenu from './SideMenu.js';
 
@@ -44,7 +44,9 @@ const styles = StyleSheet.create({
 
     body: {
       flex: 0.8,
-      marginTop: 50
+      width: Dimensions.get('window').width,
+      alignItems: 'center',
+      justifyContent: 'center'
     },
 
     actionBar: {
@@ -52,6 +54,7 @@ const styles = StyleSheet.create({
       marginLeft: 15,
       marginRight: 15,
       marginBottom: 50,
+      width: Dimensions.get('window').width,
     },
 
     menu: {
