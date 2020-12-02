@@ -27,7 +27,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <HomeScreen shouldRender={currentScreen === "home"} changeScreen={(screen) => {changeScreen(screen)}}></HomeScreen>
-      <PlayScreen cameraPermission={cameraPermission} shouldRender={currentScreen === "play"} changeScreen={(screen) => {changeScreen(screen)}}></PlayScreen>
+      <PlayScreen shouldRender={currentScreen === "play"} changeScreen={(screen) => {changeScreen(screen)}} cameraPermission={cameraPermission} ></PlayScreen>
       <EditScreen shouldRender={currentScreen === "edit"} changeScreen={(screen) => {changeScreen(screen)}}></EditScreen>
     </View>
   );

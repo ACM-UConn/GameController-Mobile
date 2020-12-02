@@ -61,5 +61,6 @@ const styles = StyleSheet.create({
 
     list: {
       flex: 0.75,
+      marginTop: 20
     },
 });
