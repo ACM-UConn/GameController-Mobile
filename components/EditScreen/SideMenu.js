@@ -17,7 +17,8 @@ export default function SideMenu(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: 100,
-    height: 300
+    width: 200,
+    height: 250,
+    backgroundColor: 'grey'
   },
 });
