@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, FlatList, Pressable, View, Text, TouchableNativeFeedback, ScrollView } from 'react-native';
+import { StyleSheet, Pressable, Text, ScrollView } from 'react-native';
 
 const Data = [
     {
@@ -16,7 +16,9 @@ const Data = [
     },
 ]
 
-export default function ControllerList() {
+export default function ControllerList(props) {
+
+    const Stuff = props.Keys
 
     // const renderController = itemData => (
     //     <TouchableNativeFeedback>
@@ -34,9 +36,9 @@ export default function ControllerList() {
 
 
   return (
-        <ScrollView style={styles.container} contentContainerStyle={styles.listContent}>
-            {values}
-        </ScrollView>
+    <ScrollView style={styles.container} contentContainerStyle={styles.listContent}>
+        {values}
+    </ScrollView>
         // <View style={styles.container}>
         //     <FlatList 
         //         data={Data}

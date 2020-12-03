@@ -21,7 +21,7 @@ export default function HomeScreen(props) {
       </View>
 
       <View style={styles.list}>
-        <ControllerList></ControllerList>
+        <ControllerList Keys={props.allKeys}></ControllerList>
       </View>
 
       <View style={styles.actionBar}>
