@@ -1,22 +1,38 @@
 import React, { useState } from 'react';
-import { ImagePropTypes, StyleSheet, View, Text, Dimensions } from 'react-native';
+import { StyleSheet, Pressable, View, Text, Dimensions } from 'react-native';
 import EditActionBar from './EditActionBar.js';
 import SideMenu from './SideMenu.js';
+import Draggable from 'react-native-draggable';
 
 export default function EditScreen(props) {
 
   const [visibility, setVisibility] = useState(false);
+  const [buttonList, setButtonList] = useState([]);
+  const [buttonNum, setButtonNum] = useState(0);
 
   const visible = () => {
     setVisibility(!visibility);
   }
 
   const handleAddButton = () => {
-    console.log("Look i made a button :) ")
+    setButtonList(
+      [...buttonList, {id: buttonNum}]
+    );
+    setButtonNum(buttonNum+1);
   }
+
+  let buttons = buttonList.map((item) =>
+    <Draggable x={200} y={300} key={item.id}>
+      <View style={styles.controllerItem}>
+        <Text>{item.id} + hi</Text>
+      </View>
+    </Draggable>
+  );
 
   const screenCallback = (screen) => {
     props.changeScreen(screen)
+    setButtonList([]);
+    setButtonNum(0);
   }
 
   if(props.shouldRender){
@@ -24,6 +40,7 @@ export default function EditScreen(props) {
       <View style={styles.container}>
         <View style={styles.body}>
           <Text>This is the body.</Text>
+          {buttons}
         </View>
         <View style={styles.menu}>
           <SideMenu visible={visibility}></SideMenu>
@@ -66,5 +83,13 @@ const styles = StyleSheet.create({
       height: 250,
       top: 0,
       right: 0,
-    }
+    },
+
+    controllerItem: {
+      width: 30,
+      height: 30,
+      borderRadius: 8,
+      padding: 15,
+      backgroundColor: 'grey'
+    },
 });
