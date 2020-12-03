@@ -23,8 +23,11 @@ export default function PlayScreen(props) {
 
   const handleNav = (place) => {
     props.changeScreen(place);
-    setConnected('scan');
-    socket.close();
+    if(connected !== 'scan') {
+      setConnected('scan');
+      socket.close();
+    }
+    
   }
   
   if(props.shouldRender) {
@@ -38,7 +41,7 @@ export default function PlayScreen(props) {
     else if(connected == 'scan'){
         return(
           <View style={styles.container}>
-            <ControllerConnect passData={(data) => handleData(data)} cameraPerms={props.cameraPermission}></ControllerConnect>
+            <ControllerConnect passData={(data) => handleData(data)} cameraPerms={props.cameraPermission} navigate={(place) => {handleNav(place)}}></ControllerConnect>
           </View>
         )
     }
