@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, Pressable, Text, ScrollView } from 'react-native';
+import React, {useState} from 'react';
+import { StyleSheet, Text, ScrollView, Pressable } from 'react-native';
 
 const Data = [
     {
@@ -18,18 +18,26 @@ const Data = [
 
 export default function ControllerList(props) {
 
-    const Stuff = props.Keys
+    const Stuff = props.Keys()
+    console.log(Stuff['_U'])
 
-    // const renderController = itemData => (
-    //     <TouchableNativeFeedback>
-    //         <View style={styles.controllerItem}>
-    //             <Text>{itemData.item.title}</Text>
-    //         </View>
-    //     </TouchableNativeFeedback>
-    // )
+    const [highlight, setHighlight] = useState()
+    
+    const getObject = async (value) => {
+        try {
+          const jsonValue = await AsyncStorage.getItem(value)
+          if (value != null) {
+            console.log(jsonValue)
+            return jsonValue
+          }
+        }
+        catch(e){
+          console.log('There is an Error! ', e)
+        }
+    }
 
     let values = Data.map((item) =>
-        <Pressable key={item.id} style={({ pressed }) => [{backgroundColor: pressed ? 'grey' : 'white'}, styles.controllerItem]}>
+        <Pressable onPress = {() => setHighlight()} onLongPress={() => setHighlight(item.id)} delayLongPress={400} key={item.id} style={[{backgroundColor: (highlight == item.id) ? 'grey' : 'white'}, styles.controllerItem]}>
             <Text>{item.title}</Text>
         </Pressable>
     );

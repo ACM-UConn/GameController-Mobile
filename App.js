@@ -11,18 +11,6 @@ export default function App() {
   const [currentScreen, setCurrentScreen] = useState("home");
   const [cameraPermission, setCameraPermission] = useState(false);
 
-  const getObject = async (value) => {
-    try {
-      const jsonValue = await AsyncStorage.getItem(value)
-      if (value != null) {
-        return jsonValue
-      }
-    }
-    catch(e){
-      console.log('There is an Error! ', e)
-    }
-  }
-
   const getAll = async () => {
     try {
       const jsonValue = await AsyncStorage.getAllKeys()
