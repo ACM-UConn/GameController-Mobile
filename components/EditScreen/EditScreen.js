@@ -9,20 +9,33 @@ export default function EditScreen(props) {
   const [visibility, setVisibility] = useState(false);
   const [buttonList, setButtonList] = useState([]);
   const [buttonNum, setButtonNum] = useState(0);
+  const [highlightedButton, setHighlightedButton] = useState({status:false,id:null});
 
   const visible = () => {
     setVisibility(!visibility);
   }
 
   const handleAddButton = () => {
-    setButtonList(
-      [...buttonList, {id: buttonNum}]
-    );
-    setButtonNum(buttonNum+1);
+    if(highlightedButton.status==false){
+      setButtonList(
+        [...buttonList, {id: buttonNum}]
+      );
+      setButtonNum(buttonNum+1);
+    }
+  }
+
+  const setHighlighted = (item) => {
+    setHighlightedButton({status:!highlightedButton.status ,id:highlightedButton.id ? null : item.id})
+    setVisibility(true)
+  }
+
+  const closeMenu = () => {
+    setVisibility(false)
+    setHighlightedButton({status:false,id:null})
   }
 
   let buttons = buttonList.map((item) =>
-    <Draggable x={200} y={300} key={item.id}>
+    <Draggable x={200} y={300} key={item.id} onLongPress={() => setHighlighted(item)} disabled={highlightedButton.status}>
       <View style={styles.controllerItem}>
         <Text>{item.id} + hi</Text>
       </View>
@@ -43,7 +56,7 @@ export default function EditScreen(props) {
           {buttons}
         </View>
         <View style={styles.menu}>
-          <SideMenu visible={visibility}></SideMenu>
+          <SideMenu visible={visibility} closeMenu={() => closeMenu()}></SideMenu>
         </View>
         <View style={styles.actionBar}>
           <EditActionBar visible={() => visible()} addButton={() => handleAddButton()} screenRequest={screen => screenCallback(screen)}></EditActionBar>
@@ -86,8 +99,8 @@ const styles = StyleSheet.create({
     },
 
     controllerItem: {
-      width: 30,
-      height: 30,
+      width: 60,
+      height: 60,
       borderRadius: 8,
       padding: 15,
       backgroundColor: 'grey'
