@@ -37,7 +37,7 @@ export default function EditScreen(props) {
   let buttons = buttonList.map((item) =>
     <Draggable x={150} y={300} key={item.id} onLongPress={() => setHighlighted(item)} disabled={highlightedButton.id !== null}>
       <View style={item.style}>
-        <Text>{item.id} + hi</Text>
+        <Text>{item.id}</Text>
       </View>
     </Draggable>
   );

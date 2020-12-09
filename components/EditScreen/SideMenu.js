@@ -26,10 +26,7 @@ export default function SideMenu(props) {
       <View style={styles.container}>
         <View style={styles.menuHeader}>
           <Pressable style={({ pressed }) => [{backgroundColor: pressed ? 'grey' : 'white'}, styles.exitBtn]} onPress={() => {props.closeMenu()}}>
-            <Text style={styles.text}>Cancel</Text>
-          </Pressable>
-          <Pressable style={({ pressed }) => [{backgroundColor: pressed ? 'grey' : 'white'}, styles.exitBtn]} onPress={() => {props.closeMenu()}}>
-            <Text style={styles.text}>Ok</Text>
+            <Text style={styles.text}>Close</Text>
           </Pressable>
         </View>
         <View style={styles.listHeader}>
@@ -87,9 +84,10 @@ const styles = StyleSheet.create({
 
   menuHeader: {
     flex: 0.2,
-    justifyContent: 'space-evenly',
+    justifyContent: 'flex-start',
     flexDirection: 'row',
-    alignContent: 'space-between'
+    alignItems: 'center',
+    marginLeft: 10,
   },
 
   menuBody: {
