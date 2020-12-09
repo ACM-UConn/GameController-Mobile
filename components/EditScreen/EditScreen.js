@@ -9,14 +9,14 @@ export default function EditScreen(props) {
   const [visibility, setVisibility] = useState(false);
   const [buttonList, setButtonList] = useState([]);
   const [buttonNum, setButtonNum] = useState(0);
-  const [highlightedButton, setHighlightedButton] = useState({status:false,id:null});
+  const [highlightedButton, setHighlightedButton] = useState({id: null, style: null});
 
   const visible = () => {
     setVisibility(!visibility);
   }
 
   const handleAddButton = () => {
-    if(highlightedButton.status==false){
+    if(highlightedButton.id==null){
       setButtonList(
         [...buttonList, {id: buttonNum, style: {width: 60, height: 60, borderRadius: 8, padding: 15, backgroundColor: 'grey'}}]
       );
@@ -25,17 +25,17 @@ export default function EditScreen(props) {
   }
 
   const setHighlighted = (item) => {
-    setHighlightedButton({status:!highlightedButton.status ,id:highlightedButton.id ? null : item.id})
+    setHighlightedButton({id: item.id, style: item.style})
     setVisibility(true)
   }
 
   const closeMenu = () => {
     setVisibility(false)
-    setHighlightedButton({status:false,id:null})
+    setHighlightedButton({id: null, style: null})
   }
 
   let buttons = buttonList.map((item) =>
-    <Draggable x={200} y={300} key={item.id} onLongPress={() => setHighlighted(item)} disabled={highlightedButton.status}>
+    <Draggable x={200} y={300} key={item.id} onLongPress={() => setHighlighted(item)} disabled={highlightedButton.id !== null}>
       <View style={item.style}>
         <Text>{item.id} + hi</Text>
       </View>
@@ -56,7 +56,7 @@ export default function EditScreen(props) {
           {buttons}
         </View>
         <View style={styles.menu}>
-          <SideMenu visible={visibility} closeMenu={() => closeMenu()}></SideMenu>
+          <SideMenu visible={visibility} closeMenu={() => closeMenu()} buttonData={highlightedButton.style}></SideMenu>
         </View>
         <View style={styles.actionBar}>
           <EditActionBar visible={() => visible()} addButton={() => handleAddButton()} screenRequest={screen => screenCallback(screen)}></EditActionBar>
