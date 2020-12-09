@@ -12,11 +12,8 @@ export default function EditActionBar(props) {
           <Text styles={styles.text}>+</Text>
         </Pressable>
 
-        <Pressable style={({ pressed }) => [{ backgroundColor: pressed ? 'gray' : 'darkgray'}, styles.wrapperCustom]} onPress={() => {props.visible()}}>
-          <Text styles={styles.text}>Menu</Text>
-          {/* <View styles={styles.menubutton}></View>
-          <View styles={styles.menubutton}></View>
-          <View styles={styles.menubutton}></View> */}
+        <Pressable style={({ pressed }) => [{ backgroundColor: pressed ? 'gray' : 'darkgray'}, styles.wrapperCustom]} onPress={() => {console.log('this is the saving action for now...')}}>
+          <Text styles={styles.text}>Save</Text>
         </Pressable>
       </View>
   );

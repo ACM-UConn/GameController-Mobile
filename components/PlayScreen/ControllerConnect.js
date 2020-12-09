@@ -15,7 +15,6 @@ export default function ControllerConnect(props) {
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
   };
   
-  console.log(props.cameraPerms)
   if(props.cameraPerms==null){
     return(
       <View style={styles.container}>

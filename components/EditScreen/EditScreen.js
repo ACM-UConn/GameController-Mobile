@@ -35,7 +35,7 @@ export default function EditScreen(props) {
   }
 
   let buttons = buttonList.map((item) =>
-    <Draggable x={200} y={300} key={item.id} onLongPress={() => setHighlighted(item)} disabled={highlightedButton.id !== null}>
+    <Draggable x={150} y={300} key={item.id} onLongPress={() => setHighlighted(item)} disabled={highlightedButton.id !== null}>
       <View style={item.style}>
         <Text>{item.id} + hi</Text>
       </View>
@@ -97,12 +97,4 @@ const styles = StyleSheet.create({
       top: 0,
       right: 0,
     },
-
-    // controllerItem: {
-    //   width: 60,
-    //   height: 60,
-    //   borderRadius: 8,
-    //   padding: 15,
-    //   backgroundColor: 'grey'
-    // },
 });

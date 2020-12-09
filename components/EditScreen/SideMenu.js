@@ -10,15 +10,15 @@ export default function SideMenu(props) {
     keys = Object.keys(props.buttonData)
 
     fields = keys.map((item) =>
-      <View style={styles.itemContainer}>
-        <View style={styles.itemKey}>
-          <Text style={styles.itemText}> {item} </Text>
+      <View style={styles.itemContainer} key={item}>
+        <View style={styles.itemBody}>
+          <Text style={styles.itemText}>{item}</Text>
         </View>
-        <View style={styles.itemValue}>
+        <View style={styles.itemBody}>
           <Text style={styles.itemText}>{props.buttonData[item]}</Text>
         </View>
       </View>
-  );
+    );
   }
 
   if (props.visible) {
@@ -26,8 +26,19 @@ export default function SideMenu(props) {
       <View style={styles.container}>
         <View style={styles.menuHeader}>
           <Pressable style={({ pressed }) => [{backgroundColor: pressed ? 'grey' : 'white'}, styles.exitBtn]} onPress={() => {props.closeMenu()}}>
-            <Text style={styles.text}>Back</Text>
+            <Text style={styles.text}>Cancel</Text>
           </Pressable>
+          <Pressable style={({ pressed }) => [{backgroundColor: pressed ? 'grey' : 'white'}, styles.exitBtn]} onPress={() => {props.closeMenu()}}>
+            <Text style={styles.text}>Ok</Text>
+          </Pressable>
+        </View>
+        <View style={styles.listHeader}>
+          <View style={styles.headerBody}>
+            <Text style={styles.itemText}>Attributes</Text>
+          </View>
+          <View style={styles.headerBody}>
+            <Text style={styles.itemText}>Values</Text>
+          </View>
         </View>
         <ScrollView style={styles.menuBody}>
           {fields}
@@ -50,10 +61,10 @@ const styles = StyleSheet.create({
   },
 
   exitBtn: {
-    width: "40%",
+    width: "30%",
     alignItems: "center",
     borderRadius: 8,
-    padding: 15
+    padding: 5,
   },
 
   itemContainer: {
@@ -61,19 +72,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
 
-  itemKey: {
+  itemBody: {
     flex: 0.5,
     justifyContent: "center",
     alignItems: "center",
-    borderColor: "black",
-    borderWidth: 2,
-  },
-
-  itemValue: {
-    flex: 0.5,
-    justifyContent: "center",
-    alignItems: "center",
-    borderColor: "black",
+    borderColor: "darkgrey",
     borderWidth: 2,
   },
 
@@ -83,12 +86,27 @@ const styles = StyleSheet.create({
   },
 
   menuHeader: {
-    flex: 0.3,
-    justifyContent: "flex-start"
+    flex: 0.2,
+    justifyContent: 'space-evenly',
+    flexDirection: 'row',
+    alignContent: 'space-between'
   },
 
   menuBody: {
-    flex: 0.7,
+    flex: 0.6,
+  },
+
+  listHeader: {
+    flex: 0.2,
+    flexDirection: 'row'
+  },
+
+  headerBody: {
+    flex: 0.5,
+    justifyContent: "center",
+    alignItems: "center",
+    borderColor: "black",
+    borderWidth: 2,
   }
 
 });

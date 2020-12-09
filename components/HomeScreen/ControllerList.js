@@ -19,7 +19,7 @@ const Data = [
 export default function ControllerList(props) {
 
     const Stuff = props.Keys()
-    console.log(Stuff['_U'])
+    //console.log(Stuff['_U'])
 
     const [highlight, setHighlight] = useState()
     
@@ -27,7 +27,7 @@ export default function ControllerList(props) {
         try {
           const jsonValue = await AsyncStorage.getItem(value)
           if (value != null) {
-            console.log(jsonValue)
+            //console.log(jsonValue)
             return jsonValue
           }
         }
