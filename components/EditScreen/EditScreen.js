@@ -18,7 +18,7 @@ export default function EditScreen(props) {
   const handleAddButton = () => {
     if(highlightedButton.status==false){
       setButtonList(
-        [...buttonList, {id: buttonNum}]
+        [...buttonList, {id: buttonNum, style: {width: 60, height: 60, borderRadius: 8, padding: 15, backgroundColor: 'grey'}}]
       );
       setButtonNum(buttonNum+1);
     }
@@ -36,7 +36,7 @@ export default function EditScreen(props) {
 
   let buttons = buttonList.map((item) =>
     <Draggable x={200} y={300} key={item.id} onLongPress={() => setHighlighted(item)} disabled={highlightedButton.status}>
-      <View style={styles.controllerItem}>
+      <View style={item.style}>
         <Text>{item.id} + hi</Text>
       </View>
     </Draggable>
@@ -98,11 +98,11 @@ const styles = StyleSheet.create({
       right: 0,
     },
 
-    controllerItem: {
-      width: 60,
-      height: 60,
-      borderRadius: 8,
-      padding: 15,
-      backgroundColor: 'grey'
-    },
+    // controllerItem: {
+    //   width: 60,
+    //   height: 60,
+    //   borderRadius: 8,
+    //   padding: 15,
+    //   backgroundColor: 'grey'
+    // },
 });
