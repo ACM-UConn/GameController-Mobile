@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Pressable, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Pressable, ScrollView, TextInput } from 'react-native';
 
 export default function SideMenu(props) {
 
@@ -15,7 +15,7 @@ export default function SideMenu(props) {
           <Text style={styles.itemText}>{item}</Text>
         </View>
         <View style={styles.itemBody}>
-          <Text style={styles.itemText}>{props.buttonData[item]}</Text>
+          <TextInput style={styles.itemText} defaultValue={typeof(props.buttonData[item]) === 'string' ? props.buttonData[item] : props.buttonData[item].toString()}/>
         </View>
       </View>
     );
