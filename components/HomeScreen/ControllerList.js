@@ -19,20 +19,24 @@ const Data = [
 export default function ControllerList(props) {
 
     const Stuff = props.Keys()
+    DataArray = []
     //console.log(Stuff['_U'])
 
     const [highlight, setHighlight] = useState()
     
-    const getObject = async (value) => {
+    const getObject = async (key) => {
         try {
-          const jsonValue = await AsyncStorage.getItem(value)
-          if (value != null) {
-            //console.log(jsonValue)
-            return jsonValue
-          }
+          const jsonValue = await AsyncStorage.getItem(key)
+          return jsonValue
         }
         catch(e){
           console.log('There is an Error! ', e)
+        }
+    }
+
+    const getAllControllers = () => {
+        for (i in Stuff){
+            DataArray.append(getObject(i))
         }
     }
 
