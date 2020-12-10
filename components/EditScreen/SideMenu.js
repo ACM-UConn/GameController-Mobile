@@ -1,23 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, Pressable, ScrollView, TextInput } from 'react-native';
 
 export default function SideMenu(props) {
 
+  const [attribute, setAttribute] = useState(null)
+
   let keys = null;
   let fields = null;
 
-  if (props.buttonData !== null) {
-    keys = Object.keys(props.buttonData)
+  const updateButton = (text) => {
+    // if(!isNaN(text)) {
+    //   props.updateButton(parseInt(text), attribute)
+    // } else {
+    //   props.updateButton(text, attribute)
+    // }
+    props.updateButton(100, "width")
+  }
 
-    fields = keys.map((item) =>
-      <View style={styles.itemContainer} key={item}>
-        <View style={styles.itemBody}>
-          <Text style={styles.itemText}>{item}</Text>
+  if (props.buttonStyle !== null) {
+    keys = Object.keys(props.buttonStyle)
+
+    fields = keys.map((obj) => {
+      let temp = JSON.parse(JSON.stringify({key: obj}));
+      let item = temp.key;
+      console.log(item)
+      return(
+        <View style={styles.itemContainer}>
+          <View style={styles.itemBody}>
+            <Text style={styles.itemText}>{item}</Text>
+          </View>
+          <View style={styles.itemBody}>
+            <TextInput style={styles.itemText} defaultValue={typeof(props.buttonStyle[item]) === 'string' ? props.buttonStyle[item] : props.buttonStyle[item].toString()} onChangeText={(text) => {updateButton(text)}}/>
+          </View>
         </View>
-        <View style={styles.itemBody}>
-          <TextInput style={styles.itemText} defaultValue={typeof(props.buttonData[item]) === 'string' ? props.buttonData[item] : props.buttonData[item].toString()}/>
-        </View>
-      </View>
+        )
+      }
     );
   }
 

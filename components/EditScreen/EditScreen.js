@@ -11,6 +11,18 @@ export default function EditScreen(props) {
   const [buttonNum, setButtonNum] = useState(0);
   const [highlightedButton, setHighlightedButton] = useState({id: null, style: null});
 
+  const updateButton = (text, item) => {
+    let listCopy = [...buttonList];
+    for(let i = 0; i < listCopy.length; i++) {
+      if (highlightedButton["id"] === listCopy[i]["id"]) {
+        console.log(listCopy[i]["style"][item])
+        listCopy[i]["style"][item] = text
+        break;
+      }
+    }
+    setButtonList([...listCopy])
+  }
+
   const visible = () => {
     setVisibility(!visibility);
   }
@@ -56,7 +68,7 @@ export default function EditScreen(props) {
           {buttons}
         </View>
         <View style={styles.menu}>
-          <SideMenu visible={visibility} closeMenu={() => closeMenu()} buttonData={highlightedButton.style}></SideMenu>
+          <SideMenu visible={visibility} closeMenu={() => closeMenu()} buttonStyle={highlightedButton.style} updateButton={(text, attribute) => updateButton(text, attribute)}></SideMenu>
         </View>
         <View style={styles.actionBar}>
           <EditActionBar visible={() => visible()} addButton={() => handleAddButton()} screenRequest={screen => screenCallback(screen)}></EditActionBar>
