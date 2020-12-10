@@ -23,10 +23,10 @@ export default function SideMenu(props) {
       return(
         <View style={styles.itemContainer} key={item}>
           <View style={styles.itemBody}>
-            <Text style={styles.itemText}>{item}</Text>
+            <Text style={[styles.itemText, styles.itemKey]}>{item}</Text>
           </View>
           <View style={styles.itemBody}>
-            <TextInput style={styles.itemText} defaultValue={typeof(props.buttonStyle[item]) === 'string' ? props.buttonStyle[item] : props.buttonStyle[item].toString()} onChangeText={(text) => {updateButton(text, item)}}/>
+            <TextInput style={[styles.itemText, styles.itemInput]} textAlign={'center'} defaultValue={typeof(props.buttonStyle[item]) === 'string' ? props.buttonStyle[item] : props.buttonStyle[item].toString()} onChangeText={(text) => {updateButton(text, item)}}/>
           </View>
         </View>
         )
@@ -50,7 +50,7 @@ export default function SideMenu(props) {
             <Text style={styles.itemText}>Values</Text>
           </View>
         </View>
-        <ScrollView style={styles.menuBody}>
+        <ScrollView style={styles.menuBody} bounces={false}>
           {fields}
         </ScrollView>
       </View>
@@ -84,15 +84,25 @@ const styles = StyleSheet.create({
 
   itemBody: {
     flex: 0.5,
-    justifyContent: "center",
+    justifyContent: 'center',
     alignItems: "center",
     borderColor: "darkgrey",
     borderWidth: 2,
   },
 
   itemText: {
+    flex: 1,
     fontSize: 15,
     color: "white"
+  },
+
+  itemKey: {
+    paddingVertical: 20,
+  },
+
+  itemInput: {
+    height: '100%',
+    width: '100%'
   },
 
   menuHeader: {

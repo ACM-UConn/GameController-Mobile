@@ -15,7 +15,6 @@ export default function EditScreen(props) {
     let listCopy = [...buttonList];
     for(let i = 0; i < listCopy.length; i++) {
       if (highlightedButton["id"] === listCopy[i]["id"]) {
-        console.log(listCopy[i]["style"][item])
         listCopy[i]["style"][item] = attribute
         break;
       }
