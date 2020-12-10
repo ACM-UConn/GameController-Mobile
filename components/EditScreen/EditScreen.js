@@ -11,12 +11,12 @@ export default function EditScreen(props) {
   const [buttonNum, setButtonNum] = useState(0);
   const [highlightedButton, setHighlightedButton] = useState({id: null, style: null});
 
-  const updateButton = (text, item) => {
+  const updateButton = (attribute, item) => {
     let listCopy = [...buttonList];
     for(let i = 0; i < listCopy.length; i++) {
       if (highlightedButton["id"] === listCopy[i]["id"]) {
         console.log(listCopy[i]["style"][item])
-        listCopy[i]["style"][item] = text
+        listCopy[i]["style"][item] = attribute
         break;
       }
     }
@@ -46,13 +46,16 @@ export default function EditScreen(props) {
     setHighlightedButton({id: null, style: null})
   }
 
-  let buttons = buttonList.map((item) =>
-    <Draggable x={150} y={300} key={item.id} onLongPress={() => setHighlighted(item)} disabled={highlightedButton.id !== null}>
-      <View style={item.style}>
-        <Text>{item.id}</Text>
-      </View>
-    </Draggable>
-  );
+  let buttons = buttonList.map((obj) => {
+    let item = JSON.parse(JSON.stringify(obj));
+    return(
+      <Draggable x={150} y={300} key={item.id} onLongPress={() => setHighlighted(item)} disabled={highlightedButton.id !== null}>
+        <View style={item.style}>
+          <Text>{item.id}</Text>
+        </View>
+      </Draggable>
+    )
+  });
 
   const screenCallback = (screen) => {
     props.changeScreen(screen)
