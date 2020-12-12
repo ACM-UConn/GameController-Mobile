@@ -21,6 +21,13 @@ export default function EditScreen(props) {
     }
     setButtonList([...listCopy])
   }
+  const returnButtonNames = () => {
+    let temp = []
+    for(let i=0; i<buttonList.length; i++) {
+      temp.push(buttonList[i][id])
+    }
+    return(temp)
+  }
 
   const visible = () => {
     setVisibility(!visibility);
@@ -73,7 +80,7 @@ export default function EditScreen(props) {
           <SideMenu visible={visibility} closeMenu={() => closeMenu()} buttonStyle={highlightedButton.style} updateButton={(text, attribute) => updateButton(text, attribute)}></SideMenu>
         </View>
         <View style={styles.actionBar}>
-          <EditActionBar visible={() => visible()} addButton={() => handleAddButton()} screenRequest={screen => screenCallback(screen)}></EditActionBar>
+          <EditActionBar visible={() => visible()} addButton={() => handleAddButton()} getButtonNames={() => returnButtonNames()} screenRequest={screen => screenCallback(screen)}></EditActionBar>
         </View>
       </View>
     );
@@ -88,20 +95,24 @@ export default function EditScreen(props) {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
+      width: '100%',
       flexDirection: 'column'
     },
 
     body: {
-      flex: 0.90,
-      alignSelf: 'stretch',
+      flex: 1,
+      width: '100%',
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: '#f5f5f5'
+      backgroundColor: '#f5f5f5',
     },
 
     actionBar: {
-      flex: 0.1,
-      width: Dimensions.get('window').width,
+      position: "absolute",
+      bottom: 0,
+      left: 0,
+      width: '100%',
+      height: '10%'
     },
 
     menu: {
