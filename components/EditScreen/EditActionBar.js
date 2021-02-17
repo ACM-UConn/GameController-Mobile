@@ -26,7 +26,7 @@ export default function EditActionBar(props) {
           <Text>Press to Close</Text>
         </Pressable>
         <ScrollView style={styles.buttonContainer} contentContainerStyle={{alignItems: 'flex-start'}} horizontal={true}>
-          <Pressable style={styles.buttonItems} onPress={() => console.log('hi')}>
+          <Pressable style={styles.buttonItems} onPress={() => props.makeButton()}>
             <Text style={styles.buttonText}>+</Text>
           </Pressable>
           {buttonNames}

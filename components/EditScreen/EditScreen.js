@@ -24,7 +24,7 @@ export default function EditScreen(props) {
   const returnButtonNames = () => {
     let temp = []
     for(let i=0; i<buttonList.length; i++) {
-      temp.push(buttonList[i][id])
+      temp.push(buttonList[i]["id"])
     }
     return(temp)
   }
@@ -72,6 +72,9 @@ export default function EditScreen(props) {
   if(props.shouldRender){
     return(
       <View style={styles.container}>
+        <Pressable style={({ pressed }) => [{ backgroundColor: pressed ? 'gray' : 'darkgray'}, styles.wrapperCustom]} onPress={() => {props.changeScreen("home")}}>
+          <Text styles={styles.text}>Back</Text>
+        </Pressable>
         <View style={styles.body}>
           <Text>This is the body.</Text>
           {buttons}
@@ -80,7 +83,7 @@ export default function EditScreen(props) {
           <SideMenu visible={visibility} closeMenu={() => closeMenu()} buttonStyle={highlightedButton.style} updateButton={(text, attribute) => updateButton(text, attribute)}></SideMenu>
         </View>
         <View style={styles.actionBar}>
-          <EditActionBar visible={() => visible()} addButton={() => handleAddButton()} getButtonNames={() => returnButtonNames()} screenRequest={screen => screenCallback(screen)}></EditActionBar>
+          <EditActionBar visible={() => visible()} addButton={() => handleAddButton()} getButtonNames={() => returnButtonNames()} screenRequest={screen => screenCallback(screen)} makeButton={() => handleAddButton()}></EditActionBar>
         </View>
       </View>
     );
