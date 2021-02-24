@@ -117,7 +117,15 @@ const styles = StyleSheet.create({
       width: '100%',
       height: '10%'
     },
-
+    wrapperCustom: {
+      width: 100,
+      borderRadius: 8,
+      padding: 15,
+      marginLeft: 20
+    },
+    text: {
+      fontSize: 24
+    },
     menu: {
       position: 'absolute',
       width: 200,

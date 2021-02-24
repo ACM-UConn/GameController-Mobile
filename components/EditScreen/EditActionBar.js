@@ -3,61 +3,88 @@ import { ImagePropTypes, Pressable, ScrollView, StyleSheet, Text, View } from 'r
 
 export default function EditActionBar(props) {
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isEditBarOpen, setIsEditBarOpen] = useState(false);
+  const [editState, setEditState] = useState('default');
+  const [selectedButton, setSelectedButton] = useState({id: null, style: null});
+  const [navigatorButton, setNavigatorButton] = useState('+');
 
   let buttonNames = null
 
-  let buttonList = props.getButtonNames()
+  let buttonList = props.getButtonNames();
+  console.log(buttonList);
 
-  buttonNames = buttonList.map((obj) => {
-    let temp = JSON.parse(JSON.stringify({key: obj}));
-    let item = temp.key;
-    return (
-      <Pressable style={styles.buttonItems}>
-        <Text>{item}</Text>
-      </Pressable>
-    )
-  })
+  const selectButton = item => {
+    setEditState('button');
+    setNavigatorButton(item);
+    setSelectedButton({id: item, style: null}); /* style is null only for now. need to pass it in somehow */
+  }
 
-  if (isOpen) {
+  const goBack = () => {
+    setEditState('default');
+    setNavigatorButton('+');
+    setSelectedButton({id: null, style: null}); /* style is null only for now. need to pass it in somehow */
+  }
+
+  buttonNames = () => {
+    let itemList = null;
+    if (editState === 'default') {
+      itemList = buttonList.map((obj) => {
+        let temp = JSON.parse(JSON.stringify({key: obj}));
+        let item = temp.key;
+        return (
+          <Pressable style={styles.listItem} onPress={() => selectButton(item)}>
+            <Text>{item}</Text>
+          </Pressable>
+        )
+      })
+    } else if (editState === 'button') {
+      console.log('editstate = button')
+    }
+    return itemList;
+  }
+
+  const backButtonVisible = () => {
+    if (editState === 'default') {
+      return null
+    } else if (editState === 'button') {
+      return (
+        <Pressable style={[styles.backButton, {bottom: "100%"}]} onPress={() => goBack()}>
+          <Text>Back</Text>
+        </Pressable>
+      )
+    }
+  }
+
+  if (isEditBarOpen) {
     return(
       <View style={styles.container}>
-        <Pressable style={[styles.openMenuButton, {bottom: "100%"}]} onPress={() => setIsOpen(false)}>
+        <Pressable style={[styles.openMenuButton, {bottom: "100%"}]} onPress={() => setIsEditBarOpen(false)}>
           <Text>Press to Close</Text>
         </Pressable>
-        <ScrollView style={styles.buttonContainer} contentContainerStyle={{alignItems: 'flex-start'}} horizontal={true}>
-          <Pressable style={styles.buttonItems} onPress={() => props.makeButton()}>
-            <Text style={styles.buttonText}>+</Text>
-          </Pressable>
-          {buttonNames}
-        </ScrollView>
+        {backButtonVisible()}
+        <View style={styles.buttonContainer}>
+          <View style={styles.actionButtonContainer}>
+            <Pressable style={styles.navigatorButton} onPress={() => {
+              editState === 'default' ? props.makeButton() : null
+            }}>
+              <Text style={styles.buttonText}>{navigatorButton}</Text>
+            </Pressable>
+          </View>
+          <ScrollView style={styles.listItems} contentContainerStyle={{}} horizontal={true} showsHorizontalScrollIndicator={false}>
+            {buttonNames()}
+          </ScrollView>
+        </View>
       </View>
     )
   }
 
   else {
     return(
-      <Pressable style={[styles.openMenuButton, {bottom: 0}]} onPress={() => setIsOpen(true)}>
+      <Pressable style={[styles.openMenuButton, {bottom: 0}]} onPress={() => setIsEditBarOpen(true)}>
         <Text>Press to Open</Text>
       </Pressable>
     );
   }
-  
-  // return (
-  //     <View style={styles.container}>
-  //       <Pressable style={({ pressed }) => [{ backgroundColor: pressed ? 'gray' : 'darkgray'}, styles.wrapperCustom]} onPress={() => {props.screenRequest("home")}}>
-  //         <Text styles={styles.text}>Back</Text>
-  //       </Pressable>
-
-  //       <Pressable style={({ pressed }) => [{ backgroundColor: pressed ? 'gray' : 'darkgray'}, styles.wrapperCustom]} onPress={() => {props.addButton()}}>
-  //         <Text styles={styles.text}>+</Text>
-  //       </Pressable>
-
-  //       <Pressable style={({ pressed }) => [{ backgroundColor: pressed ? 'gray' : 'darkgray'}, styles.wrapperCustom]} onPress={() => {console.log('this is the saving action for now...')}}>
-  //         <Text styles={styles.text}>Save</Text>
-  //       </Pressable>
-  //     </View>
-  // );
 }
 
 const styles = StyleSheet.create({
@@ -96,17 +123,45 @@ const styles = StyleSheet.create({
       borderTopLeftRadius: 8,
       borderTopRightRadius: 8,
     },
+    backButton: {
+      position: 'absolute',
+      bottom: 0,
+      left: 25,
+      width: 75,
+      height: 40,
+      backgroundColor: "grey",
+      borderTopLeftRadius: 8,
+      borderTopRightRadius: 8,
+    },
     buttonContainer: {
       flex: 1,
       flexDirection: 'row',
     },
-    buttonItems: {
+    actionButtonContainer: {
+      width: 100,
+      borderRightWidth: 5,
+      borderColor: "white"
+    },
+    navigatorButton: {
       height: 50,
       width: 50,
       backgroundColor: 'black',
       color: 'white',
       borderRadius: 8,
       marginHorizontal: 20,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    listItems: {
+      marginHorizontal: 10
+    },
+    listItem: {
+      height: 50,
+      width: 100,
+      color: "white",
+      borderColor: "black",
+      borderWidth: 5,
+      marginHorizontal: 10,
       justifyContent: 'center',
       alignItems: 'center'
     },
