@@ -6,33 +6,34 @@ export default function EditActionBar(props) {
   const [isEditBarOpen, setIsEditBarOpen] = useState(false);
   const [editState, setEditState] = useState('default');
   const [selectedButton, setSelectedButton] = useState({id: null, style: null});
-  const [navigatorButton, setNavigatorButton] = useState('+');
+  const [actionButton, setActionButton] = useState('+');
 
   let buttonNames = null
 
   let buttonList = props.getButtonNames();
   console.log(buttonList);
 
-  const selectButton = item => {
-    setEditState('button');
-    setNavigatorButton(item);
-    setSelectedButton({id: item, style: null}); /* style is null only for now. need to pass it in somehow */
-  }
-
-  const goBack = () => {
-    setEditState('default');
-    setNavigatorButton('+');
-    setSelectedButton({id: null, style: null}); /* style is null only for now. need to pass it in somehow */
+  /* turn these two fucntions into a toggle function */
+  const toggleActionButton = (item=null) => {
+    if (item !== null) {
+      setEditState('button');
+      setActionButton(item);
+      setSelectedButton({id: item, style: null}); /* style is null only for now. need to pass it in somehow */
+    } else {
+      setEditState('default');
+      setActionButton('+');
+      setSelectedButton({id: null, style: null}); /* style is null only for now. need to pass it in somehow */
+    }
   }
 
   buttonNames = () => {
     let itemList = null;
     if (editState === 'default') {
-      itemList = buttonList.map((obj) => {
+      itemList = buttonList.map((obj, index) => {
         let temp = JSON.parse(JSON.stringify({key: obj}));
         let item = temp.key;
         return (
-          <Pressable style={styles.listItem} onPress={() => selectButton(item)}>
+          <Pressable style={styles.listItem} onPress={() => toggleActionButton(item)} key={index}>
             <Text>{item}</Text>
           </Pressable>
         )
@@ -48,7 +49,7 @@ export default function EditActionBar(props) {
       return null
     } else if (editState === 'button') {
       return (
-        <Pressable style={[styles.backButton, {bottom: "100%"}]} onPress={() => goBack()}>
+        <Pressable style={[styles.backButton, {bottom: "100%"}]} onPress={() => toggleActionButton()}>
           <Text>Back</Text>
         </Pressable>
       )
@@ -64,10 +65,10 @@ export default function EditActionBar(props) {
         {backButtonVisible()}
         <View style={styles.buttonContainer}>
           <View style={styles.actionButtonContainer}>
-            <Pressable style={styles.navigatorButton} onPress={() => {
+            <Pressable style={styles.actionButton} onPress={() => {
               editState === 'default' ? props.makeButton() : null
             }}>
-              <Text style={styles.buttonText}>{navigatorButton}</Text>
+              <Text style={styles.buttonText}>{actionButton}</Text>
             </Pressable>
           </View>
           <ScrollView style={styles.listItems} contentContainerStyle={{}} horizontal={true} showsHorizontalScrollIndicator={false}>
@@ -142,7 +143,7 @@ const styles = StyleSheet.create({
       borderRightWidth: 5,
       borderColor: "white"
     },
-    navigatorButton: {
+    actionButton: {
       height: 50,
       width: 50,
       backgroundColor: 'black',

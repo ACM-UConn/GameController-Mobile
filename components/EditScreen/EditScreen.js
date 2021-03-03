@@ -36,7 +36,7 @@ export default function EditScreen(props) {
   const handleAddButton = () => {
     if(highlightedButton.id==null){
       setButtonList(
-        [...buttonList, {id: buttonNum, style: {width: 60, height: 60, borderRadius: 8, padding: 15, backgroundColor: 'grey'}}]
+        [{id: buttonNum, style: {width: 60, height: 60, borderRadius: 8, padding: 15, backgroundColor: 'grey'}}, ...buttonList]
       );
       setButtonNum(buttonNum+1);
     }
