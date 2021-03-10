@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { StyleSheet, Pressable, View, Text, Dimensions } from 'react-native';
+import { StyleSheet, Pressable, View, Text, Dimensions, Modal, TextInput, TouchableWithoutFeedback } from 'react-native';
 import EditActionBar from './EditActionBar.js';
 import SideMenu from './SideMenu.js';
 import Draggable from 'react-native-draggable';
+import EditScreenModal from './EditScreenModal.js';
 
 export default function EditScreen(props) {
 
@@ -10,6 +11,7 @@ export default function EditScreen(props) {
   const [buttonList, setButtonList] = useState([]);
   const [buttonNum, setButtonNum] = useState(0);
   const [highlightedButton, setHighlightedButton] = useState({id: null, style: null});
+  const [modalVisiblity, setModalVisiblity] = useState(true);
 
   const updateButton = (attribute, item) => {
     let listCopy = [...buttonList];
@@ -33,6 +35,10 @@ export default function EditScreen(props) {
     setVisibility(!visibility);
   }
 
+  const modalVisible = () => {
+    setModalVisiblity(!modalVisiblity);
+  }
+
   const handleAddButton = () => {
     if(highlightedButton.id==null){
       setButtonList(
@@ -40,6 +46,7 @@ export default function EditScreen(props) {
       );
       setButtonNum(buttonNum+1);
     }
+    modalVisible();
   }
 
   const setHighlighted = (item) => {
@@ -79,11 +86,22 @@ export default function EditScreen(props) {
           <Text>This is the body.</Text>
           {buttons}
         </View>
+        <EditScreenModal 
+          shouldRender={modalVisiblity} 
+          hideModal={() => modalVisible()} 
+          makeButton={() => handleAddButton()}>
+        </EditScreenModal>
         <View style={styles.menu}>
           <SideMenu visible={visibility} closeMenu={() => closeMenu()} buttonStyle={highlightedButton.style} updateButton={(text, attribute) => updateButton(text, attribute)}></SideMenu>
         </View>
         <View style={styles.actionBar}>
-          <EditActionBar visible={() => visible()} addButton={() => handleAddButton()} getButtonNames={() => returnButtonNames()} screenRequest={screen => screenCallback(screen)} makeButton={() => handleAddButton()}></EditActionBar>
+          <EditActionBar 
+            visible={() => visible()} 
+            addButton={() => handleAddButton()} 
+            getButtonNames={() => returnButtonNames()} 
+            screenRequest={screen => screenCallback(screen)}
+            showModal={() => modalVisible()}>
+          </EditActionBar>
         </View>
       </View>
     );
@@ -109,7 +127,6 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       backgroundColor: '#f5f5f5',
     },
-
     actionBar: {
       position: "absolute",
       bottom: 0,

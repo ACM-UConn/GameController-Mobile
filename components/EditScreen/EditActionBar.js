@@ -66,7 +66,7 @@ export default function EditActionBar(props) {
         <View style={styles.buttonContainer}>
           <View style={styles.actionButtonContainer}>
             <Pressable style={styles.actionButton} onPress={() => {
-              editState === 'default' ? props.makeButton() : null
+              editState === 'default' ? props.showModal() : null
             }}>
               <Text style={styles.buttonText}>{actionButton}</Text>
             </Pressable>
