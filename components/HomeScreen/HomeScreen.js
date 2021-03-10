@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import CreateModal from './CreateModal';
 import ControllerList from './ControllerList';
 import HomeActionBar from './HomeActionBar';
 
 export default function HomeScreen(props) {
 
+  const [modalCreate, setModalCreate] = useState(false);
+
   // when abraham (homeactionbar) sends me the screen that the user presses
   const screenCallback = (screen) => {
     props.changeScreen(screen)
+  }
+
+  const modalFunction = (state) => {
+    setModalCreate(state);
   }
 
   // does the return statement if the prop from App.js is true (if one of the different screens was clicked)
@@ -15,7 +22,7 @@ export default function HomeScreen(props) {
     return(
 
     <View style={styles.container}>
-
+      
       <View style={styles.header}>
         <Text style={styles.headerText}>GameController</Text>
       </View>
@@ -24,8 +31,9 @@ export default function HomeScreen(props) {
         <ControllerList Keys={() => props.allKeys()}></ControllerList>
       </View>
 
+      <CreateModal shouldRender={modalCreate} modalCreate={(state) => modalFunction(state)} />
       <View style={styles.actionBar}>
-        <HomeActionBar screenRequest={screen => screenCallback(screen)}></HomeActionBar>  
+        <HomeActionBar modalCreate={(state) => modalFunction(state)} screenRequest={screen => screenCallback(screen)}></HomeActionBar>
       </View>
 
     </View>)

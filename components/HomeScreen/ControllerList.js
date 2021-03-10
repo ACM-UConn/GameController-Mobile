@@ -57,7 +57,7 @@ export default function ControllerList(props) {
           }
         })
         setData(array_objects);
-    }, [keys])
+    }, [])
 
     const clearAll = async () => {
       try {
@@ -69,12 +69,13 @@ export default function ControllerList(props) {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.listContent}>
-        {data.map(item => (
+        {/* {data.map(item => (
           <Pressable onPress = {() => setHighlight()} onLongPress={() => setHighlight(item.id)} delayLongPress={400} key={item.id} style={[{backgroundColor: (highlight == item.id) ? 'grey' : 'white'}, styles.controllerItem]}>
             <Text>{item.title}</Text>
           </Pressable>
-        ))}
+        ))} */}
         <Button title="Store Data" onPress={() => storeData()} />
+        <Button title="Clear storage" onPress={() => clearAll()} />
     </ScrollView>
   );
 }
