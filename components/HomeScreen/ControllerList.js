@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
-import { StyleSheet, Text, ScrollView, Pressable } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import { StyleSheet, Text, ScrollView, Pressable, Button } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Data = [
     {
@@ -18,46 +19,63 @@ const Data = [
 
 export default function ControllerList(props) {
 
-    const Stuff = props.Keys()
-    DataArray = []
-    //console.log(Stuff['_U'])
+    const keys = props.Keys();
 
     const [highlight, setHighlight] = useState()
+    const [data, setData] = useState([])
     
-    const getObject = async (key) => {
+    const storeData = async () => {
         try {
-          const jsonValue = await AsyncStorage.getItem(key)
-          return jsonValue
-        }
-        catch(e){
-          console.log('There is an Error! ', e)
-        }
-    }
-
-    const getAllControllers = () => {
-        for (i in Stuff){
-            DataArray.append(getObject(i))
+          const jsonValue = JSON.stringify({ id: "fksfii4h3546", title: "Xbox Controller" });
+          await AsyncStorage.setItem("fksfii4h3546mnmfj3", jsonValue);
+          console.log('Success (dexters voice)');
+    
+        } catch (error) {
+          console.log("An Error has occurred");
+          console.error(error);
         }
     }
 
-    let values = Data.map((item) =>
-        <Pressable onPress = {() => setHighlight()} onLongPress={() => setHighlight(item.id)} delayLongPress={400} key={item.id} style={[{backgroundColor: (highlight == item.id) ? 'grey' : 'white'}, styles.controllerItem]}>
-            <Text>{item.title}</Text>
-        </Pressable>
-    );
+    const getControllerObject = async (key) => {
+        try {
+          const jsonValue = await AsyncStorage.getItem(key);
+          return jsonValue != null ? JSON.parse(jsonValue) : null;
+        } catch (error) {
+          console.log("An Error has occurred");
+          console.error(error);
+        }
+    }
 
+    useEffect(() => {
+      const array_objects = [];
+        keys.then(function(value) {
+          for(const i in value) {
+            const values = getControllerObject(value[i])
+            values.then(function(value2) {
+              array_objects.push(value2);
+            });
+          }
+        })
+        setData(array_objects);
+    }, [keys])
+
+    const clearAll = async () => {
+      try {
+        await AsyncStorage.clear()
+      } catch(e) {
+      }
+      console.log('Done.')
+    }
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.listContent}>
-        {values}
+        {data.map(item => (
+          <Pressable onPress = {() => setHighlight()} onLongPress={() => setHighlight(item.id)} delayLongPress={400} key={item.id} style={[{backgroundColor: (highlight == item.id) ? 'grey' : 'white'}, styles.controllerItem]}>
+            <Text>{item.title}</Text>
+          </Pressable>
+        ))}
+        <Button title="Store Data" onPress={() => storeData()} />
     </ScrollView>
-        // <View style={styles.container}>
-        //     <FlatList 
-        //         data={Data}
-        //         renderItem={renderController}
-        //         keyExtractor={item => item.id}
-        //     />
-        // </View>
   );
 }
 

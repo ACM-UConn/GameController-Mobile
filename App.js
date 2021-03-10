@@ -11,14 +11,16 @@ export default function App() {
   const [currentScreen, setCurrentScreen] = useState("home");
   const [cameraPermission, setCameraPermission] = useState(false);
 
-  const getAll = async () => {
+  const getAllKeys = async () => {
+    let keys = []
     try {
-      const jsonValue = await AsyncStorage.getAllKeys()
-      return jsonValue
+      keys = await AsyncStorage.getAllKeys()
     }
     catch(e) {
       console.log('There is an Error! ', e)
     }
+
+    return keys
   }
 
   const changeScreen = (newScreen) => {
@@ -38,7 +40,7 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <HomeScreen allKeys={() => getAll()} shouldRender={currentScreen === "home"} changeScreen={(screen) => {changeScreen(screen)}}></HomeScreen>
+      <HomeScreen allKeys={() => getAllKeys()} shouldRender={currentScreen === "home"} changeScreen={(screen) => {changeScreen(screen)}}></HomeScreen>
       <PlayScreen shouldRender={currentScreen === "play"} changeScreen={(screen) => {changeScreen(screen)}} cameraPermission={cameraPermission} ></PlayScreen>
       <EditScreen shouldRender={currentScreen === "edit"} changeScreen={(screen) => {changeScreen(screen)}}></EditScreen>
     </SafeAreaView>
