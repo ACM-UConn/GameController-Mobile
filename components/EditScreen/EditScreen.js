@@ -11,7 +11,7 @@ export default function EditScreen(props) {
   const [buttonList, setButtonList] = useState([]);
   const [buttonNum, setButtonNum] = useState(0);
   const [highlightedButton, setHighlightedButton] = useState({id: null, style: null});
-  const [modalVisiblity, setModalVisiblity] = useState(true);
+  const [modalVisiblity, setModalVisiblity] = useState(false);
 
   const updateButton = (attribute, item) => {
     let listCopy = [...buttonList];
