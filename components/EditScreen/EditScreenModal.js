@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Pressable, View, Text, TextInput } from 'react-native';
+import DropdownMenu from './DropdownMenu.js'
 
 export default function EditScreenModal(props) {
   const [value, onChangeText] = useState('');
@@ -7,27 +8,46 @@ export default function EditScreenModal(props) {
   if (props.shouldRender) {
     return (
       <View style={styles.modalView}>
+        
         <Text>new button</Text>
+
         <View style={styles.buttonName}>
           <Text>name: </Text>
           <TextInput
-            style={{ height: 40, width: 200, borderWidth: 1, borderColor: 'black', borderRadius: 10  }}
-            placeholder="Type here to translate!"
+            style={{ height: 40, width: 200, borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
+            placeholder="button name!"
             onChangeText={text => onChangeText(text)}
             value={value}
           />
         </View>
-        {/* DROPDOWN for color */}
-        {/* DROPDOWN for type */}
+
+        <View style={styles.buttonType}>
+          <Text>type: </Text>
+          <DropdownMenu 
+            attribute={"type"} 
+            options={['button', 'joystick', 'dpad']}
+          />
+        </View>
+
+        <View style={styles.buttonColor}>
+          <Text>color: </Text>
+          <DropdownMenu 
+            attribute={"color"} 
+            options={['red', 'orange', 'yellow', 'green', 'blue', 'pink']}
+          />
+        </View>
+
         <Pressable onPress={() => props.makeButton()} style={styles.createButton}>
           <Text style={ {color: "white"} }>Create</Text>
         </Pressable>
+      
       </View>
     )
   } else {
     return null;
   }
 }
+
 
 const styles = StyleSheet.create({
   modalView: {
@@ -54,7 +74,17 @@ const styles = StyleSheet.create({
   buttonName: {
     flexDirection: 'row',
     alignItems: "center",
-    backgroundColor: 'lightgrey',
+    borderWidth: 1
+  },
+  buttonType: {
+    flexDirection: 'row',
+    alignItems: "center",
+    borderWidth: 1
+  },
+  buttonColor: {
+    flexDirection: 'row',
+    alignItems: "center",
+    borderWidth: 1
   },
   createButton: {
     height: 50,
