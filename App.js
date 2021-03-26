@@ -13,14 +13,20 @@ export default function App() {
 
   const getAllKeys = async () => {
     let keys = []
+    // let values = [];
     try {
       keys = await AsyncStorage.getAllKeys()
+      // for(var i in keys)
+      // {
+      //   const jsonValue = await AsyncStorage.getItem(i);
+      //   console.log(values);
+      //   values.push(JSON.parse(jsonValue));
+      // }
     }
     catch(e) {
       console.log('There is an Error! ', e)
     }
-
-    return keys
+    return keys;
   }
 
   const changeScreen = (newScreen) => {

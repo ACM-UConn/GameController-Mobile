@@ -23,6 +23,9 @@ export default function ControllerList(props) {
 
     const [highlight, setHighlight] = useState()
     const [data, setData] = useState([])
+
+    const onRender = props.render;
+    const array_objects = [];
     
     const storeData = async () => {
         try {
@@ -47,35 +50,35 @@ export default function ControllerList(props) {
     }
 
     useEffect(() => {
-      const array_objects = [];
         keys.then(function(value) {
-          for(const i in value) {
-            const values = getControllerObject(value[i])
+          for(var i in value) {
+            const values = getControllerObject(value[i]);
             values.then(function(value2) {
               array_objects.push(value2);
             });
           }
-        })
+        });
         setData(array_objects);
-    }, [])
+    }, []);
 
     const clearAll = async () => {
       try {
         await AsyncStorage.clear()
       } catch(e) {
+        console.error(e);
       }
       console.log('Done.')
     }
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.listContent}>
-        {/* {data.map(item => (
+        {data.map(item => (
           <Pressable onPress = {() => setHighlight()} onLongPress={() => setHighlight(item.id)} delayLongPress={400} key={item.id} style={[{backgroundColor: (highlight == item.id) ? 'grey' : 'white'}, styles.controllerItem]}>
             <Text>{item.title}</Text>
           </Pressable>
-        ))} */}
-        <Button title="Store Data" onPress={() => storeData()} />
-        <Button title="Clear storage" onPress={() => clearAll()} />
+        ))}
+        {/* <Button title="Store Data" onPress={() => storeData()} />
+        <Button title="Clear storage" onPress={() => clearAll()} /> */}
     </ScrollView>
   );
 }
