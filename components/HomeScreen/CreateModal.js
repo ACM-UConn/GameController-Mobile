@@ -24,16 +24,16 @@ export default function CreateModal(props) {
   }
 
   const createController = () => {
-    props.modalCreate(false);
     if(controllerName == '') {
       console.log("invaild input please input a correct title");
     }
     else
     {
-      storeData(controllerName); // figure out how to generate keys for these items
+      props.updateController(controllerName);
       setControllerName('')
       console.log("Controller has been created");
     }
+    props.modalCreate(false);
   }
 
   const cancelModal = () => {
@@ -63,6 +63,7 @@ export default function CreateModal(props) {
     return null;
   }
 }
+
 
 const styles = StyleSheet.create({
   modalObject: {

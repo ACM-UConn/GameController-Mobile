@@ -3,10 +3,12 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import CreateModal from './CreateModal';
 import ControllerList from './ControllerList';
 import HomeActionBar from './HomeActionBar';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function HomeScreen(props) {
 
   const [modalCreate, setModalCreate] = useState(false);
+  const [data, setData] = useState([])
 
   // when abraham (homeactionbar) sends me the screen that the user presses
   const screenCallback = (screen) => {
@@ -15,6 +17,18 @@ export default function HomeScreen(props) {
 
   const modalFunction = (state) => {
     setModalCreate(state);
+  }
+
+  const updateCont = async (value) => {
+    try {
+      const jsonValue = JSON.stringify({ id: "fksfii4h3546", title: value });
+      await AsyncStorage.setItem("fksfii4h3546", jsonValue);
+      setData([{ id: "fksfii4h3546", title: value }, ...data]);
+      console.log('Success');
+    } catch (error) {
+      console.log("An Error has occurred");
+      console.error(error);
+    }
   }
 
   // does the return statement if the prop from App.js is true (if one of the different screens was clicked)
@@ -28,10 +42,10 @@ export default function HomeScreen(props) {
       </View>
 
       <View style={styles.list}>
-        <ControllerList Keys={() => props.allKeys()} render={modalCreate}></ControllerList>
+        <ControllerList controllerData={data} modalCreate={(state) => modalFunction(state)} Keys={() => props.allKeys()} render={modalCreate}></ControllerList>
       </View>
 
-      <CreateModal shouldRender={modalCreate} modalCreate={(state) => modalFunction(state)} />
+      <CreateModal updateController={(name) => updateCont(name)} shouldRender={modalCreate} modalCreate={(state) => modalFunction(state)} />
       <View style={styles.actionBar}>
         <HomeActionBar modalCreate={(state) => modalFunction(state)} screenRequest={screen => screenCallback(screen)}></HomeActionBar>
       </View>
