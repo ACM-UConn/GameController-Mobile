@@ -76,24 +76,29 @@ export default function EditScreen(props) {
     setButtonNum(0);
   }
 
-  if(props.shouldRender){
+  if (props.shouldRender) {
     return(
       <View style={styles.container}>
+
         <Pressable style={({ pressed }) => [{ backgroundColor: pressed ? 'gray' : 'darkgray'}, styles.wrapperCustom]} onPress={() => {props.changeScreen("home")}}>
           <Text styles={styles.text}>Back</Text>
         </Pressable>
+
         <View style={styles.body}>
           <Text>This is the body.</Text>
           {buttons}
         </View>
+
         <EditScreenModal 
           shouldRender={modalVisiblity} 
           hideModal={() => modalVisible()} 
           makeButton={() => handleAddButton()}>
         </EditScreenModal>
+
         <View style={styles.menu}>
           <SideMenu visible={visibility} closeMenu={() => closeMenu()} buttonStyle={highlightedButton.style} updateButton={(text, attribute) => updateButton(text, attribute)}></SideMenu>
         </View>
+
         <View style={styles.actionBar}>
           <EditActionBar 
             visible={() => visible()} 
@@ -103,6 +108,7 @@ export default function EditScreen(props) {
             showModal={() => modalVisible()}>
           </EditActionBar>
         </View>
+        
       </View>
     );
   }

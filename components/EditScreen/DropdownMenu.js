@@ -10,9 +10,10 @@ export default function DropdownMenu(props) {
     setMenuVisible(!menuVisible);
   }
   
-  const options = props.options.map((option) => {
+  const options = props.options.map((option, _key) => {
+    key = _key;
     return(
-      <Pressable onPress={() => updateValue(option)}>
+      <Pressable style={styles.option}  onPress={() => updateValue(option)} key={option.id}>
         <Text>{option}</Text>
       </Pressable>
     )
@@ -21,11 +22,11 @@ export default function DropdownMenu(props) {
   return(
     <View style={styles.dropdownMenu}>
       
-      <Pressable onPress={() => setMenuVisible(!menuVisible)}>
+      <Pressable styles={styles.value} onPress={() => setMenuVisible(!menuVisible)}>
         <Text>{value}</Text>
       </Pressable>
 
-      <ScrollView style={{ display: menuVisible, borderWidth: 1 }}>
+      <ScrollView style={styles.picker, {display: menuVisible}}>
         {options}
       </ScrollView>
     
@@ -38,6 +39,17 @@ const styles = StyleSheet.create({
   dropdownMenu: {
     position: 'relative',
     width: 200,
+    height: 50,
+    borderWidth: 1
+  },
+  value: {
+    backgroundColor: 'green'
+  },
+  picker: {
+    borderWidth: 1 
+  },
+  option: {
+    height: 25,
     borderWidth: 1
   }
 })
