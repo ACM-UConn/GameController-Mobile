@@ -97,27 +97,61 @@ export default function EditScreen(props) {
           visible={modalVisiblity}>
             <View style={styles.centeredView}></View>
             <View style={styles.modalView}>
-              <DropDownPicker
-                items={[
-                    {label: 'USA', value: 'usa'},
-                    {label: 'UK', value: 'uk'},
-                    {label: 'France', value: 'france'},
-                ]}
-                defaultValue={"uk"}
-                containerStyle={{height: 70, width: 130, marginVertical: 40}}
-                style={{backgroundColor: '#fafafa'}}
-                itemStyle={{
-                    justifyContent: 'center',
-                    height: 50,
-                    width: 130
-                }}
-                dropDownStyle={{backgroundColor: '#fafafa', height: 100, width: 130}}
-                onChangeItem={() => {}}
-              />
-              <Pressable onPress={() => {setModalVisiblity(!modalVisiblity)}} style={[styles.button, styles.buttonClose]}>
-                <Text>Click to Return</Text>
-              </Pressable>
-            </View> 
+
+              <View style={styles.modalFlexbox}>
+
+                <View>
+                  <Text style={{marginBottom: 5}}>Name: </Text>
+                  <TextInput
+                    style={{height: 50, width: 200, borderWidth: 1, borderColor: 'black', borderRadius: 10, paddingLeft: 10}}
+                    placeholder="button name!"
+                    onChangeText={text => onChangeText(text)}
+                    value={value}
+                  />
+                </View>
+                
+                <View style={{zIndex: 2}}>
+                  <DropDownPicker
+                    items={[
+                        {label: 'Button', value: 'button'},
+                        {label: 'Joystick', value: 'joystick'},
+                        {label: 'D-pad', value: 'dpad'},
+                    ]}
+                    defaultValue={"button"}
+                    containerStyle={{height: 50, width: 200}}
+                    style={{backgroundColor: '#fafafa'}}
+                    itemStyle={{ justifyContent: 'flex-start', height: 50, borderBottomWidth: 1}}
+                    dropDownStyle={{backgroundColor: '#fafafa', height: 120, width: 200}}
+                    onChangeItem={() => {}}
+                  />
+                </View>
+
+                <View style={{zIndex: 1}}>
+                  <DropDownPicker
+                    items={[
+                        {label: 'Red', value: 'red'},
+                        {label: 'Orange', value: 'orange'},
+                        {label: 'Yellow', value: 'yellow'},
+                        {label: 'Green', value: 'green'},
+                        {label: 'Blue', value: 'blue'},
+                        {label: 'Pink', value: 'pink'},
+                    ]}
+                    defaultValue={"red"}
+                    containerStyle={{height: 50, width: 200}}
+                    style={{backgroundColor: '#fafafa'}}
+                    itemStyle={{ justifyContent: 'flex-start', height: 50, borderBottomWidth: 1}}
+                    dropDownStyle={{backgroundColor: '#fafafa', height: 120, width: 200}}
+                    onChangeItem={() => {}}
+                  />
+                </View>
+
+                <Pressable onPress={() => {setModalVisiblity(!modalVisiblity)}} style={[styles.button, styles.buttonClose]}>
+                  <Text style={{color: 'white', fontWeight: 'bold'}}>Click to Return</Text>
+                </Pressable>
+
+              </View>
+
+            </View>
         </Modal>
 
         <View style={styles.actionBar}>
@@ -167,7 +201,7 @@ const styles = StyleSheet.create({
       marginLeft: 20
     },
     text: {
-      fontSize: 24
+      fontSize: 24,
     },
     menu: {
       position: 'absolute',
@@ -190,11 +224,9 @@ const styles = StyleSheet.create({
       top: "30%",
       left: "10%",
       width: 300,
-      height: 300,
-      //margin: 20,
+      height: 350,
       backgroundColor: "white",
       borderRadius: 20,
-      //padding: 35,
       alignItems: "center",
       shadowColor: "#000",
       shadowOffset: {
@@ -202,17 +234,24 @@ const styles = StyleSheet.create({
         height: 2
       }
     },
-    button: {
-      marginTop: 30,
-      borderRadius: 20,
-      paddingHorizontal: 70,
-      paddingVertical: 30,
-      elevation: 2
+    modalFlexbox: {
+      display: 'flex',
+      flexDirection: 'column',
+      width: '100%',
+      height: '100%',
+      justifyContent: 'space-evenly',
+      alignItems: 'center',
     },
-    buttonOpen: {
-      backgroundColor: "#F194FF",
+    button: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 10,
+      elevation: 2,
+      width: 200,
+      height: 50,
     },
     buttonClose: {
-      backgroundColor: "#2196F3",
+      backgroundColor: "#2196F3"
     }
 });
