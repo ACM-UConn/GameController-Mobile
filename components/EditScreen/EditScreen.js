@@ -3,6 +3,7 @@ import { StyleSheet, Pressable, View, Text, Modal, TextInput, Dimensions } from 
 import EditActionBar from './EditActionBar.js';
 import SideMenu from './SideMenu.js';
 import Draggable from 'react-native-draggable';
+import DropDownPicker from 'react-native-dropdown-picker';
 import EditScreenModal from './EditScreenModal.js';
 
 export default function EditScreen(props) {
@@ -96,6 +97,23 @@ export default function EditScreen(props) {
           visible={modalVisiblity}>
             <View style={styles.centeredView}></View>
             <View style={styles.modalView}>
+              <DropDownPicker
+                items={[
+                    {label: 'USA', value: 'usa'},
+                    {label: 'UK', value: 'uk'},
+                    {label: 'France', value: 'france'},
+                ]}
+                defaultValue={"uk"}
+                containerStyle={{height: 70, width: 130, marginVertical: 40}}
+                style={{backgroundColor: '#fafafa'}}
+                itemStyle={{
+                    justifyContent: 'center',
+                    height: 50,
+                    width: 130
+                }}
+                dropDownStyle={{backgroundColor: '#fafafa', height: 100, width: 130}}
+                onChangeItem={() => {}}
+              />
               <Pressable onPress={() => {setModalVisiblity(!modalVisiblity)}} style={[styles.button, styles.buttonClose]}>
                 <Text>Click to Return</Text>
               </Pressable>
