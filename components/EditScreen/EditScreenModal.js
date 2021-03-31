@@ -9,10 +9,10 @@ export default function EditScreenModal(props) {
     return (
       <View style={styles.modalView}>
         
-        <Text>new button</Text>
+        <Text>New Button</Text>
 
         <View style={styles.buttonName}>
-          <Text>name: </Text>
+          <Text>Name: </Text>
           <TextInput
             style={{ height: 40, width: 200, borderWidth: 1, borderColor: 'black', borderRadius: 10 }}
             placeholder="button name!"
@@ -22,19 +22,23 @@ export default function EditScreenModal(props) {
         </View>
 
         <View style={styles.buttonType}>
-          <Text>type: </Text>
-          <DropdownMenu 
-            attribute={"type"} 
-            options={['button', 'joystick', 'dpad']}
-          />
+          <Text>Type: </Text>
+          <View style={styles.dropdownWrapper}>
+            <DropdownMenu 
+              attribute={"type"} 
+              options={['button', 'joystick', 'dpad']}
+            />
+          </View>
         </View>
 
         <View style={styles.buttonColor}>
-          <Text>color: </Text>
-          <DropdownMenu 
-            attribute={"color"} 
-            options={['red', 'orange', 'yellow', 'green', 'blue', 'pink']}
-          />
+          <Text>Color: </Text>
+          <View style={styles.dropdownWrapper}>
+            <DropdownMenu 
+              attribute={"color"} 
+              options={['red', 'orange', 'yellow', 'green', 'blue', 'pink']}
+            />
+          </View>
         </View>
 
         <Pressable onPress={() => props.makeButton()} style={styles.createButton}>
@@ -51,8 +55,6 @@ export default function EditScreenModal(props) {
 
 const styles = StyleSheet.create({
   modalView: {
-    flex: 1,
-    flexDirection: "column",
     position: "absolute",
     top: '50%',
     left: '50%',
@@ -60,8 +62,8 @@ const styles = StyleSheet.create({
     marginTop: -200,
     width: 300,
     marginLeft: -150,
+    padding: 20,
     alignItems: "center",
-    justifyContent: "space-evenly",
     backgroundColor: "white",
     borderRadius: 20,
     shadowColor: "#000",
@@ -71,24 +73,31 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
   },
+  dropdownWrapper: {
+    height: 50
+  },
   buttonName: {
     flexDirection: 'row',
+    marginTop: 50,
     alignItems: "center",
     borderWidth: 1
   },
   buttonType: {
     flexDirection: 'row',
+    marginTop: 50,
     alignItems: "center",
     borderWidth: 1
   },
   buttonColor: {
     flexDirection: 'row',
+    marginTop: 50,
     alignItems: "center",
     borderWidth: 1
   },
   createButton: {
     height: 50,
     width: 100,
+    marginTop: 50,
     backgroundColor: 'black',
     borderRadius: 10
   },
