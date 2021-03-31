@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Pressable, View, Text, Dimensions, Modal, TextInput, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, Pressable, View, Text, Modal, TextInput, Dimensions } from 'react-native';
 import EditActionBar from './EditActionBar.js';
 import SideMenu from './SideMenu.js';
 import Draggable from 'react-native-draggable';
@@ -12,6 +12,7 @@ export default function EditScreen(props) {
   const [buttonNum, setButtonNum] = useState(0);
   const [highlightedButton, setHighlightedButton] = useState({id: null, style: null});
   const [modalVisiblity, setModalVisiblity] = useState(false);
+  const [value, onChangeText] = useState('');
 
   const updateButton = (attribute, item) => {
     let listCopy = [...buttonList];
@@ -89,15 +90,17 @@ export default function EditScreen(props) {
           {buttons}
         </View>
 
-        <EditScreenModal 
-          shouldRender={modalVisiblity} 
-          hideModal={() => modalVisible()} 
-          makeButton={() => handleAddButton()}>
-        </EditScreenModal>
-
-        <View style={styles.menu}>
-          <SideMenu visible={visibility} closeMenu={() => closeMenu()} buttonStyle={highlightedButton.style} updateButton={(text, attribute) => updateButton(text, attribute)}></SideMenu>
-        </View>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalVisiblity}>
+            <View style={styles.centeredView}></View>
+            <View style={styles.modalView}>
+              <Pressable onPress={() => {setModalVisiblity(!modalVisiblity)}} style={[styles.button, styles.buttonClose]}>
+                <Text>Click to Return</Text>
+              </Pressable>
+            </View> 
+        </Modal>
 
         <View style={styles.actionBar}>
           <EditActionBar 
@@ -108,7 +111,6 @@ export default function EditScreen(props) {
             showModal={() => modalVisible()}>
           </EditActionBar>
         </View>
-        
       </View>
     );
   }
@@ -156,4 +158,43 @@ const styles = StyleSheet.create({
       top: 0,
       right: 0,
     },
+    centeredView: {
+      position: "absolute",
+      width: Dimensions.get('window').width,
+      height: Dimensions.get('window').height,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "black",
+      opacity: 0.6
+    },
+    modalView: {
+      position: "absolute",
+      top: "30%",
+      left: "10%",
+      width: 300,
+      height: 300,
+      //margin: 20,
+      backgroundColor: "white",
+      borderRadius: 20,
+      //padding: 35,
+      alignItems: "center",
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 2
+      }
+    },
+    button: {
+      marginTop: 30,
+      borderRadius: 20,
+      paddingHorizontal: 70,
+      paddingVertical: 30,
+      elevation: 2
+    },
+    buttonOpen: {
+      backgroundColor: "#F194FF",
+    },
+    buttonClose: {
+      backgroundColor: "#2196F3",
+    }
 });
