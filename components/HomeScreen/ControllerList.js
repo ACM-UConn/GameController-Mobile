@@ -27,19 +27,6 @@ export default function ControllerList(props) {
 
     const onRender = props.render;
 
-    // useEffect(() => {
-    //   console.log("is this working");
-    //     keys.then(function(value) {
-    //       for(var i in value) {
-    //         const values = getControllerObject(value[i]);
-    //         values.then(function(value2) {
-    //           array_objects.push(value2);
-    //         });
-    //       }
-    //     });
-    //     setData(array_objects);
-    // }, [onRender]);
-
     const clearAll = async () => {
       try {
         await AsyncStorage.clear()
