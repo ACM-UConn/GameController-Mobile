@@ -11,7 +11,7 @@ export default function EditActionBar(props) {
   let buttonNames = null
 
   let buttonList = props.getButtonNames();
-  console.log(buttonList);
+  //console.log(buttonList);
 
   /* turn these two fucntions into a toggle function */
   const toggleActionButton = (item=null) => {

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { StyleSheet, Pressable, View, Text, Modal, TextInput, Dimensions } from 'react-native';
-import EditActionBar from './EditActionBar.js';
-import SideMenu from './SideMenu.js';
-import Draggable from 'react-native-draggable';
-import DropDownPicker from 'react-native-dropdown-picker';
-import EditScreenModal from './EditScreenModal.js';
+import React, { useState } from "react";
+import { StyleSheet, Pressable, View, Text, Modal, TextInput, Dimensions } from "react-native";
+import EditActionBar from "./EditActionBar.js";
+// import SideMenu from "./SideMenu.js";
+import Draggable from "react-native-draggable";
+import DropDownPicker from "react-native-dropdown-picker";
+// import EditScreenModal from "./EditScreenModal.js";
 
 export default function EditScreen(props) {
 
@@ -13,7 +13,11 @@ export default function EditScreen(props) {
   const [buttonNum, setButtonNum] = useState(0);
   const [highlightedButton, setHighlightedButton] = useState({id: null, style: null});
   const [modalVisiblity, setModalVisiblity] = useState(false);
-  const [value, onChangeText] = useState('');
+  const [btnName, setBtnName] = useState("");
+  const [btnParam, setBtnParam] = useState({
+    btnType: 'button',
+    btnColor: 'red',
+  });
 
   const updateButton = (attribute, item) => {
     let listCopy = [...buttonList];
@@ -41,24 +45,31 @@ export default function EditScreen(props) {
     setModalVisiblity(!modalVisiblity);
   }
 
-  const handleAddButton = () => {
-    if(highlightedButton.id==null){
+  const handleAddButton = (btnName, btnType, btnColor) => {
+    console.log(btnType);
+    console.log(btnParam);
+    if (highlightedButton.id == null && btnName != "") {
       setButtonList(
-        [{id: buttonNum, style: {width: 60, height: 60, borderRadius: 8, padding: 15, backgroundColor: 'grey'}}, ...buttonList]
+        [{id: buttonNum, style: {width: 60, height: 60, borderRadius: 8, padding: 15, backgroundColor: btnColor}}, ...buttonList]
       );
       setButtonNum(buttonNum+1);
+      setBtnName("");
+      setBtnParam({
+        btnType: null,
+        btnColor: null,
+      });
     }
     modalVisible();
   }
 
   const setHighlighted = (item) => {
-    setHighlightedButton({id: item.id, style: item.style})
-    setVisibility(true)
+    setHighlightedButton({id: item.id, style: item.style});
+    setVisibility(true);
   }
 
   const closeMenu = () => {
-    setVisibility(false)
-    setHighlightedButton({id: null, style: null})
+    setVisibility(false);
+    setHighlightedButton({id: null, style: null});
   }
 
   let buttons = buttonList.map((obj) => {
@@ -73,16 +84,41 @@ export default function EditScreen(props) {
   });
 
   const screenCallback = (screen) => {
-    props.changeScreen(screen)
+    props.changeScreen(screen);
     setButtonList([]);
     setButtonNum(0);
+  }
+
+  const closeModal = () => {
+    setBtnName("");
+    setBtnParam({
+      btnType: null,
+      btnColor: null,
+    });
+    modalVisible();
+  }
+
+  const changeBtnParam = (item) => {
+    if (item.type === "btnType") {
+      setBtnParam({
+        btnName: btnName,
+        btnType: item.value,
+        btnColor: btnParam["btnColor"],
+      });
+    } else if (item.type === "btnColor") {
+      setBtnParam({
+        btnName: btnName,
+        btnType: btnParam["btnType"],
+        btnColor: item.value,
+      });
+    }
   }
 
   if (props.shouldRender) {
     return(
       <View style={styles.container}>
 
-        <Pressable style={({ pressed }) => [{ backgroundColor: pressed ? 'gray' : 'darkgray'}, styles.wrapperCustom]} onPress={() => {props.changeScreen("home")}}>
+        <Pressable style={({ pressed }) => [{ backgroundColor: pressed ? "gray" : "darkgray"}, styles.wrapperCustom]} onPress={() => {props.changeScreen("home")}}>
           <Text styles={styles.text}>Back</Text>
         </Pressable>
 
@@ -100,53 +136,57 @@ export default function EditScreen(props) {
 
               <View style={styles.modalFlexbox}>
 
+                <Pressable onPress={() => {closeModal()}} style={[styles.button, styles.closeModal]}>
+                  <Text style={{color: "white", fontWeight: "bold"}}>Back</Text>
+                </Pressable>
+
                 <View>
                   <Text style={{marginBottom: 5}}>Name: </Text>
                   <TextInput
-                    style={{height: 50, width: 200, borderWidth: 1, borderColor: 'black', borderRadius: 10, paddingLeft: 10}}
+                    style={{height: 50, width: 200, borderWidth: 1, borderColor: "black", borderRadius: 10, paddingLeft: 10}}
                     placeholder="button name!"
-                    onChangeText={text => onChangeText(text)}
-                    value={value}
+                    onChangeText={text => setBtnName(text)}
+                    value={btnName}
                   />
                 </View>
                 
                 <View style={{zIndex: 2}}>
                   <DropDownPicker
                     items={[
-                        {label: 'Button', value: 'button'},
-                        {label: 'Joystick', value: 'joystick'},
-                        {label: 'D-pad', value: 'dpad'},
+                        {label: "Button", value: "button", type: "btnType"},
+                        {label: "Joystick", value: "joystick", type: "btnType"},
+                        {label: "D-pad", value: "dpad", type: "btnType"},
                     ]}
                     defaultValue={"button"}
                     containerStyle={{height: 50, width: 200}}
-                    style={{backgroundColor: '#fafafa'}}
-                    itemStyle={{ justifyContent: 'flex-start', height: 50, borderBottomWidth: 1}}
-                    dropDownStyle={{backgroundColor: '#fafafa', height: 120, width: 200}}
-                    onChangeItem={() => {}}
+                    style={{backgroundColor: "#fafafa"}}
+                    itemStyle={{ justifyContent: "flex-start", height: 50, borderBottomWidth: 1}}
+                    dropDownStyle={{backgroundColor: "#fafafa", height: 120, width: 200}}
+                    onChangeItem={(item) => {changeBtnParam(item)}}
                   />
                 </View>
 
                 <View style={{zIndex: 1}}>
                   <DropDownPicker
                     items={[
-                        {label: 'Red', value: 'red'},
-                        {label: 'Orange', value: 'orange'},
-                        {label: 'Yellow', value: 'yellow'},
-                        {label: 'Green', value: 'green'},
-                        {label: 'Blue', value: 'blue'},
-                        {label: 'Pink', value: 'pink'},
+                        {label: "Red", value: "red", type: "btnColor"},
+                        {label: "Orange", value: "orange", type: "btnColor"},
+                        {label: "Yellow", value: "yellow", type: "btnColor"},
+                        {label: "Green", value: "green", type: "btnColor"},
+                        {label: "Blue", value: "blue", type: "btnColor"},
+                        {label: "Pink", value: "pink", type: "btnColor"},
                     ]}
                     defaultValue={"red"}
                     containerStyle={{height: 50, width: 200}}
-                    style={{backgroundColor: '#fafafa'}}
-                    itemStyle={{ justifyContent: 'flex-start', height: 50, borderBottomWidth: 1}}
-                    dropDownStyle={{backgroundColor: '#fafafa', height: 120, width: 200}}
-                    onChangeItem={() => {}}
+                    style={{backgroundColor: "#fafafa"}}
+                    itemStyle={{ justifyContent: "flex-start", height: 50, borderBottomWidth: 1}}
+                    dropDownStyle={{backgroundColor: "#fafafa", height: 120, width: 200}}
+                    onChangeItem={(item) => {changeBtnParam(item)}}
                   />
                 </View>
 
-                <Pressable onPress={() => {setModalVisiblity(!modalVisiblity)}} style={[styles.button, styles.buttonClose]}>
-                  <Text style={{color: 'white', fontWeight: 'bold'}}>Click to Return</Text>
+                <Pressable onPress={() => {handleAddButton(btnName, btnParam["btnType"], btnParam["btnColor"])}} style={[styles.button, styles.buttonCreate]}>
+                  <Text style={{color: "white", fontWeight: "bold"}}>Create Button</Text>
                 </Pressable>
 
               </View>
@@ -176,23 +216,23 @@ export default function EditScreen(props) {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      width: '100%',
-      flexDirection: 'column'
+      width: "100%",
+      flexDirection: "column"
     },
 
     body: {
       flex: 1,
-      width: '100%',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: '#f5f5f5',
+      width: "100%",
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: "#f5f5f5",
     },
     actionBar: {
       position: "absolute",
       bottom: 0,
       left: 0,
-      width: '100%',
-      height: '10%'
+      width: "100%",
+      height: "10%"
     },
     wrapperCustom: {
       width: 100,
@@ -204,7 +244,7 @@ const styles = StyleSheet.create({
       fontSize: 24,
     },
     menu: {
-      position: 'absolute',
+      position: "absolute",
       width: 200,
       height: 250,
       top: 0,
@@ -212,8 +252,8 @@ const styles = StyleSheet.create({
     },
     centeredView: {
       position: "absolute",
-      width: Dimensions.get('window').width,
-      height: Dimensions.get('window').height,
+      width: Dimensions.get("window").width,
+      height: Dimensions.get("window").height,
       justifyContent: "center",
       alignItems: "center",
       backgroundColor: "black",
@@ -235,23 +275,30 @@ const styles = StyleSheet.create({
       }
     },
     modalFlexbox: {
-      display: 'flex',
-      flexDirection: 'column',
-      width: '100%',
-      height: '100%',
-      justifyContent: 'space-evenly',
-      alignItems: 'center',
+      display: "flex",
+      flexDirection: "column",
+      width: "100%",
+      height: "100%",
+      justifyContent: "space-evenly",
+      alignItems: "center",
     },
     button: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
       borderRadius: 10,
       elevation: 2,
       width: 200,
       height: 50,
     },
-    buttonClose: {
+    closeModal: {
+      backgroundColor: "rgba(200, 0, 0, .75)",
+      width: 75,
+      height: 40,
+      alignSelf: "flex-start",
+      marginLeft: 50
+    },
+    buttonCreate: {
       backgroundColor: "#2196F3"
     }
 });
