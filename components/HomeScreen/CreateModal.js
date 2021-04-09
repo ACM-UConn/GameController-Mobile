@@ -9,7 +9,7 @@ export default function CreateModal(props) {
 
   const storeData = async (value) => {
     try {
-      const jsonValue = JSON.stringify({ id: "fksfii4h3546", title: value });
+      const jsonValue = JSON.stringify({ id: "fksfii4h3546mnmfj3", title: value });
       await AsyncStorage.setItem("fksfii4h3546mnmfj3", jsonValue);
       console.log('Success (dexters voice)');
 
@@ -59,7 +59,6 @@ export default function CreateModal(props) {
     )  
   }
   else {
-    console.log('returning Null')
     return null;
   }
 }

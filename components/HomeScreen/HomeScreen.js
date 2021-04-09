@@ -12,7 +12,7 @@ export default function HomeScreen(props) {
 
   // when abraham (homeactionbar) sends me the screen that the user presses
   const screenCallback = (screen) => {
-    props.changeScreen(screen)
+    props.changeScreen(screen);
   }
 
   const modalFunction = (state) => {
@@ -25,8 +25,23 @@ export default function HomeScreen(props) {
       await AsyncStorage.setItem("fksfii4h3546", jsonValue);
       setData([{ id: "fksfii4h3546", title: value }, ...data]);
       console.log('Success');
+
     } catch (error) {
       console.log("An Error has occurred");
+      console.error(error);
+    }
+  }
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem("fksfii4h3546");
+      const value2 = JSON.parse(jsonValue);
+      const bool = false;
+      if(value2 != null)
+      {
+        setData([{id: value2.id, title: value2.title}]);
+      }
+    } catch (error) {
+      console.log("An Error has ocurred");
       console.error(error);
     }
   }
@@ -42,7 +57,7 @@ export default function HomeScreen(props) {
       </View>
 
       <View style={styles.list}>
-        <ControllerList controllerData={data} modalCreate={(state) => modalFunction(state)} Keys={() => props.allKeys()} render={modalCreate}></ControllerList>
+        <ControllerList render={props.shouldRender} dataGet={() => getData()} controllerData={data} modalCreate={(state) => modalFunction(state)} Keys={() => props.allKeys()} render={modalCreate}></ControllerList>
       </View>
 
       <CreateModal updateController={(name) => updateCont(name)} shouldRender={modalCreate} modalCreate={(state) => modalFunction(state)} />
@@ -59,12 +74,10 @@ export default function HomeScreen(props) {
 
 
 const styles = StyleSheet.create({
-
     container: {
       flex: 1,
       flexDirection: 'column',
     },
-
     header: {
       flex: 0.2,
       paddingTop: 60,
@@ -72,15 +85,12 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center'
     },
-
     headerText: {
       fontSize: 40,
     },
-
     actionBar: {
       flex: 0.3,
     },
-
     list: {
       flex: 0.5,
     },

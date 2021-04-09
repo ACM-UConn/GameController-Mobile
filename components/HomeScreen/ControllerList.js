@@ -2,21 +2,6 @@ import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, ScrollView, Pressable, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// const Data = [
-//     {
-//         id: 'fksfii4h3546mnmfjfj3',
-//         title: 'Xbox Controller'
-//     },
-//     {
-//         id: 'fkdjfkjdkljgkhh',
-//         title: 'PS5 Controller'
-//     },
-//     {
-//         id:'asjjfkjieijmdm243',
-//         title: 'Rocket League(Xbox)'
-//     },
-// ]
-
 export default function ControllerList(props) {
 
     const keys = props.Keys();
@@ -24,16 +9,20 @@ export default function ControllerList(props) {
     const [highlight, setHighlight] = useState()
     const data = props.controllerData;
     
-
     const onRender = props.render;
 
-    const clearAll = async () => {
+    useEffect(() => {
+      props.dataGet();
+    }, [onRender])
+
+    const clearData = async () => {
       try {
         await AsyncStorage.clear()
-      } catch(e) {
-        console.error(e);
+        console.log("Data has been cleared")
+      } catch (error) {
+        console.log("Error has occured");
+        console.error(error);
       }
-      console.log('Done.')
     }
 
   return (
@@ -43,6 +32,7 @@ export default function ControllerList(props) {
             <Text>{item.title}</Text>
           </Pressable>
         ))}
+        <Button title="Clear Data" onPress={() => clearData()} />
     </ScrollView>
   );
 }

@@ -10,7 +10,6 @@ import * as Permissions from 'expo-permissions';
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState("home");
   const [cameraPermission, setCameraPermission] = useState(false);
-
   const getAllKeys = async () => {
     let keys = []
     // let values = [];
@@ -28,7 +27,7 @@ export default function App() {
     }
     return keys;
   }
-
+  
   const changeScreen = (newScreen) => {
     if (newScreen === "home" || newScreen === "play" || newScreen === "edit") {
       setCurrentScreen(newScreen);
