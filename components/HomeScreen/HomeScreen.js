@@ -9,6 +9,7 @@ export default function HomeScreen(props) {
 
   const [modalCreate, setModalCreate] = useState(false);
   const [data, setData] = useState([])
+  const [createDisappear, setCreate] = useState(false);
 
   // when abraham (homeactionbar) sends me the screen that the user presses
   const screenCallback = (screen) => {
@@ -46,6 +47,20 @@ export default function HomeScreen(props) {
     }
   }
 
+  const createButton = (boolean) => {
+    console.log(boolean);
+    if(boolean != null)
+    {
+      setCreate(true);
+      console.log(createDisappear);
+    }
+    else
+    {
+      setCreate(false);
+      console.log(createDisappear);
+    }
+  }
+
   // does the return statement if the prop from App.js is true (if one of the different screens was clicked)
   if (props.shouldRender) {
     return(
@@ -57,12 +72,12 @@ export default function HomeScreen(props) {
       </View>
 
       <View style={styles.list}>
-        <ControllerList render={props.shouldRender} dataGet={() => getData()} controllerData={data} modalCreate={(state) => modalFunction(state)} Keys={() => props.allKeys()} render={modalCreate}></ControllerList>
+        <ControllerList selected={(bool) => createButton(bool)} render={props.shouldRender} dataGet={() => getData()} controllerData={data} modalCreate={(state) => modalFunction(state)} Keys={() => props.allKeys()} render={modalCreate}></ControllerList>
       </View>
 
       <CreateModal updateController={(name) => updateCont(name)} shouldRender={modalCreate} modalCreate={(state) => modalFunction(state)} />
       <View style={styles.actionBar}>
-        <HomeActionBar modalCreate={(state) => modalFunction(state)} screenRequest={screen => screenCallback(screen)}></HomeActionBar>
+        <HomeActionBar disableCreate={createDisappear} modalCreate={(state) => modalFunction(state)} screenRequest={screen => screenCallback(screen)}></HomeActionBar>
       </View>
 
     </View>)

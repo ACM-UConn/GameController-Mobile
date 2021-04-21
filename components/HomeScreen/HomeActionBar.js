@@ -8,7 +8,7 @@ export default function HomeActionBar(props) {
             <Text style={styles.text}>Play</Text>
         </Pressable>
 
-        <Pressable style={({ pressed }) => [{backgroundColor: pressed ? 'gray' : 'darkgray'}, styles.wrapperCustom]} onPress={() => props.modalCreate(true)}>
+        <Pressable style={({ pressed }) => [{backgroundColor: pressed ? 'gray' : 'darkgray'}, styles.wrapperCustom]} disabled={props.disableCreate} onPress={() => props.modalCreate(true)}>
             <Text style={styles.text}>Create</Text>
         </Pressable>
 

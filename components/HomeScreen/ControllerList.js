@@ -11,6 +11,14 @@ export default function ControllerList(props) {
     
     const onRender = props.render;
 
+    const highlightOn = (id) => {
+      setHighlight(id);
+      if(id != null)
+      {
+        props.selected(id)
+      }
+    }
+
     useEffect(() => {
       props.dataGet();
     }, [onRender])
@@ -28,7 +36,7 @@ export default function ControllerList(props) {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.listContent}>
         {data.map(item => (
-          <Pressable onPress = {() => setHighlight()} onLongPress={() => setHighlight(item.id)} delayLongPress={400} key={item.id} style={[{backgroundColor: (highlight == item.id) ? 'grey' : 'white'}, styles.controllerItem]}>
+          <Pressable onPress = {() => setHighlight()} onLongPress={() => highlightOn(item.id)} delayLongPress={400} key={item.id} style={[{backgroundColor: (highlight == item.id) ? 'grey' : 'white'}, styles.controllerItem]}>
             <Text>{item.title}</Text>
           </Pressable>
         ))}
