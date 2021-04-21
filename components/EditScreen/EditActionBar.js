@@ -30,6 +30,7 @@ export default function EditActionBar(props) {
     let itemList = null;
     if (editState === 'default') {
       itemList = buttonList.map((obj, index) => {
+        console.log(obj)
         let temp = JSON.parse(JSON.stringify({key: obj}));
         let item = temp.key;
         return (

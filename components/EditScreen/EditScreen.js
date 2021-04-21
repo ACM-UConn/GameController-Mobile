@@ -32,7 +32,7 @@ export default function EditScreen(props) {
   const returnButtonNames = () => {
     let temp = []
     for(let i=0; i<buttonList.length; i++) {
-      temp.push(buttonList[i]["id"])
+      temp.push(buttonList[i]["name"])
     }
     return(temp)
   }
@@ -45,12 +45,12 @@ export default function EditScreen(props) {
     setModalVisiblity(!modalVisiblity);
   }
 
-  const handleAddButton = (btnName, btnType, btnColor) => {
+  const handleAddButton = (name, btnType, btnColor) => {
     console.log(btnType);
     console.log(btnParam);
-    if (highlightedButton.id == null && btnName != "") {
+    if (highlightedButton.id == null && name != "") {
       setButtonList(
-        [{id: buttonNum, style: {width: 60, height: 60, borderRadius: 8, padding: 15, backgroundColor: btnColor}}, ...buttonList]
+        [{name: name, id: buttonNum, style: {width: 60, height: 60, borderRadius: 8, padding: 15, backgroundColor: btnColor}}, ...buttonList]
       );
       setButtonNum(buttonNum+1);
       setBtnName("");
@@ -77,7 +77,7 @@ export default function EditScreen(props) {
     return(
       <Draggable x={150} y={300} key={item.id} onLongPress={() => setHighlighted(item)} disabled={highlightedButton.id !== null}>
         <View style={item.style}>
-          <Text>{item.id}</Text>
+          <Text>{item.name}</Text>
         </View>
       </Draggable>
     )
