@@ -55,8 +55,8 @@ export default function EditScreen(props) {
       setButtonNum(buttonNum+1);
       setBtnName("");
       setBtnParam({
-        btnType: null,
-        btnColor: null,
+        btnType: 'button',
+        btnColor: 'red',
       });
     }
     modalVisible();
@@ -185,7 +185,7 @@ export default function EditScreen(props) {
                   />
                 </View>
 
-                <Pressable onPress={() => {handleAddButton(btnName, btnParam["btnType"], btnParam["btnColor"])}} style={[styles.button, styles.buttonCreate]}>
+                <Pressable onPress={() => {handleAddButton(btnName, btnParam.btnType, btnParam.btnColor)}} style={[styles.button, styles.buttonCreate]}>
                   <Text style={{color: "white", fontWeight: "bold"}}>Create Button</Text>
                 </Pressable>
 
