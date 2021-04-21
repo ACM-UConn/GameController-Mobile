@@ -32,7 +32,7 @@ export default function ControllerList(props) {
             <Text>{item.title}</Text>
           </Pressable>
         ))}
-        <Button title="Clear Data" onPress={() => clearData()} />
+        {/* <Button title="Clear Data" onPress={() => clearData()} /> */}
     </ScrollView>
   );
 }
